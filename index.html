@@ -235,5 +235,37 @@
     // Actualiza año del footer
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
+
+  <!-- Botón fijo para volver arriba -->
+  <button id="toTopBtn" class="to-top" type="button" aria-label="Volver arriba" title="Volver arriba">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="M12 5l7 7-1.41 1.41L13 9.83V20h-2V9.83L6.41 13.41 5 12z"/>
+    </svg>
+  </button>
+
+  <script>
+    // Mostrar/ocultar el botón al hacer scroll y volver arriba con suavidad
+    (function() {
+      const btn = document.getElementById('toTopBtn');
+      if (!btn) return;
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const toggle = () => {
+        if (window.scrollY > 200) btn.classList.add('show');
+        else btn.classList.remove('show');
+      };
+      window.addEventListener('scroll', toggle, { passive: true });
+      window.addEventListener('load', toggle);
+      btn.addEventListener('click', () => {
+        const topEl = document.getElementById('top');
+        if (prefersReduced) {
+          window.scrollTo(0, 0);
+        } else if (topEl && topEl.scrollIntoView) {
+          topEl.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
