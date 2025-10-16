@@ -294,8 +294,10 @@ body {
 }
 
 .nav-wrap {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 1000;
   backdrop-filter: blur(10px);
   background: color-mix(in oklab, var(--bg) 70%, transparent);
@@ -346,6 +348,8 @@ body {
   max-width: 1100px;
   margin: 0 auto;
   padding: 2.5rem 1rem;
+  /* Evita que el menú fijo tape los títulos al navegar por anclas */
+  scroll-margin-top: 80px;
 }
 
 .section > h2 {
