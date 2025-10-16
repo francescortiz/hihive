@@ -248,21 +248,35 @@ textarea {
 
 /* ==== HiHive custom styles ==== */
 :root {
-  --bg: #0f172a; /* slate-900 base */
-  --bg-soft: #111827; /* gray-900 */
+  --bg: #0c0a09; /* stone-950 base (warm dark) */
+  --bg-soft: #1c1917; /* stone-900 */
   --text: #e5e7eb; /* gray-200 */
   --muted: #9ca3af; /* gray-400 */
-  --primary: #1d2b64; /* deep blue */
-  --accent: #8a2be2; /* blueviolet */
-  --accent-2: #5b21b6; /* indigo-800 */
-  --card: #0b1220; /* dark card */
-  --card-border: #1f2937; /* border */
+  --primary: #c2410c; /* burnt orange */
+  --accent: #f97316; /* vivid orange */
+  --accent-2: #ea580c; /* deep orange */
+  --card: #0f0d0a; /* warm dark card */
+  --card-border: #27272a; /* neutral border */
+  --success: #10b981; /* emerald */
+  --danger: #ef4444; /* red-500 */
+}
+
+:root {
+  --bg: #0c0a09; /* stone-950 base (warm dark) */
+  --bg-soft: #1c1917; /* stone-900 */
+  --text: #e5e7eb; /* gray-200 */
+  --muted: #9ca3af; /* gray-400 */
+  --primary: #c2410c; /* burnt orange */
+  --accent: #f97316; /* vivid orange */
+  --accent-2: #ea580c; /* deep orange */
+  --card: #0f0d0a; /* warm dark card */
+  --card-border: #27272a; /* neutral border */
   --success: #10b981; /* emerald */
   --danger: #ef4444; /* red-500 */
 }
 
 html, body {
-  background: linear-gradient(135deg, var(--bg), #121e3a 40%, #1a1446) fixed;
+  background: linear-gradient(135deg, var(--bg), #1c1917 40%, #2a1400) fixed;
   color: var(--text);
 }
 
@@ -511,3 +525,48 @@ img.marca-ocupado {
     width: 72px
   }
 }
+
+
+/* ==== Light theme override ==== */
+:root {
+  --bg: #fafaf9; /* stone-50 */
+  --bg-soft: #ffffff; /* white */
+  --text: #111827; /* gray-900 */
+  --muted: #6b7280; /* gray-500 */
+  --primary: #c2410c; /* burnt orange */
+  --accent: #f97316; /* vivid orange */
+  --accent-2: #ea580c; /* deep orange */
+  --card: #ffffff; /* light card */
+  --card-border: #e5e7eb; /* light border */
+  --success: #10b981; /* emerald */
+  --danger: #ef4444; /* red-500 */
+}
+
+html, body {
+  background: linear-gradient(135deg, var(--bg), #ffffff 40%, #fff) fixed;
+  color: var(--text);
+}
+
+input, select {
+  background: var(--card);
+  color: var(--text);
+}
+
+
+/* ==== Light theme override (fix) ==== */
+:root {
+  --bg: #fafaf9;
+  --bg-soft: #ffffff;
+  --text: #111827;
+  --muted: #6b7280;
+  --primary: #c2410c;
+  --accent: #f97316;
+  --accent-2: #ea580c;
+  --card: #ffffff;
+  --card-border: #e5e7eb;
+  --success: #10b981;
+  --danger: #ef4444;
+}
+
+html, body { background: linear-gradient(135deg, var(--bg), #ffffff 40%, #fff) fixed; color: var(--text); }
+input, select { background: var(--card); color: var(--text); }
