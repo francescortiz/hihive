@@ -332,7 +332,7 @@ body {
 
 .logo {
   margin: .25rem 0 0;
-  font-size: clamp(2rem, 3vw + 1rem, 3.25rem);
+  font-size: clamp(2.5rem, 4vw + 1rem, 4rem);
   line-height: 1.1;
   font-weight: 800;
   letter-spacing: .5px;
@@ -711,4 +711,10 @@ body { padding-bottom: 88px; }
   text-align: center;
   font-weight: 700;
   margin: 0 0 .6rem; /* small separation from the photo */
+}
+
+
+/* Reduce spacing between header title and Despachos section only */
+#despachos.section {
+  padding-top: 1rem; /* was 2.5rem via .section */
 }
