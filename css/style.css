@@ -319,8 +319,6 @@ body {
   padding: .5rem .75rem;
   border-radius: 999px;
   border: 1px solid transparent;
-  position: relative; /* needed for the hover sphere */
-  overflow: hidden;   /* contain the sphere inside the pill */
 }
 
 /* Hover background remains for subtle base feedback */
@@ -329,44 +327,8 @@ body {
   background: color-mix(in oklab, var(--primary) 20%, transparent);
 }
 
-/* Expanding sphere effect over the text */
-.nav-link::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  /* Softer, more diffused sphere using multiple stops and outer transparency */
-  background: radial-gradient(circle at center,
-    color-mix(in oklab, var(--accent) 55%, transparent) 0%,
-    color-mix(in oklab, var(--accent) 45%, transparent) 25%,
-    color-mix(in oklab, var(--primary) 60%, transparent) 55%,
-    color-mix(in oklab, var(--primary) 30%, transparent) 75%,
-    color-mix(in oklab, var(--primary) 10%, transparent) 88%,
-    transparent 100%);
-  transform: translate(-50%, -50%) scale(0.15);
-  opacity: 0;
-  /* More gradual animation */
-  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-  /* Slight blur to diffuse the edges further; clipped by overflow on .nav-link */
-  filter: blur(10px);
-  pointer-events: none; /* do not block clicks */
-  z-index: 1; /* render above the link text to "cover" it */
-}
 
-.nav-link:hover::after,
-.nav-link:focus-visible::after {
-  width: 220%;
-  height: 220%;
-  transform: translate(-50%, -50%) scale(1);
-  opacity: 1;
-}
 
-@media (prefers-reduced-motion: reduce) {
-  .nav-link::after { transition: none; }
-}
 
 .logo {
   margin: .25rem 0 0;
@@ -378,6 +340,18 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+/* Color azul para las letras "Hi" de HiHive */
+.logo .logo-hi {
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  color: #3b82f6; /* blue-500 */
+}
+/* También en otros contextos (p. ej., footer) */
+.logo-hi {
+  color: #3b82f6;
 }
 
 .subtitle {
@@ -575,8 +549,8 @@ img.marca-ocupado {
 
 /* ==== Light theme override ==== */
 :root {
-  --bg: #fafaf9; /* stone-50 */
-  --bg-soft: #ffffff; /* white */
+  --bg: #f6e7c6; /* light ochre */
+  --bg-soft: #f1d8a8; /* soft ochre */
   --text: #111827; /* gray-900 */
   --muted: #6b7280; /* gray-500 */
   --primary: #c2410c; /* burnt orange */
@@ -589,7 +563,7 @@ img.marca-ocupado {
 }
 
 html, body {
-  background: linear-gradient(135deg, var(--bg), #ffffff 40%, #fff) fixed;
+  background: linear-gradient(135deg, var(--bg), var(--bg-soft) 40%, var(--bg-soft)) fixed;
   color: var(--text);
 }
 
@@ -601,8 +575,8 @@ input, select {
 
 /* ==== Light theme override (fix) ==== */
 :root {
-  --bg: #fafaf9;
-  --bg-soft: #ffffff;
+  --bg: #f6e7c6;
+  --bg-soft: #f1d8a8;
   --text: #111827;
   --muted: #6b7280;
   --primary: #c2410c;
