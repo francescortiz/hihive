@@ -319,11 +319,53 @@ body {
   padding: .5rem .75rem;
   border-radius: 999px;
   border: 1px solid transparent;
+  position: relative; /* needed for the hover sphere */
+  overflow: hidden;   /* contain the sphere inside the pill */
 }
 
+/* Hover background remains for subtle base feedback */
 .nav-link:hover {
   border-color: color-mix(in oklab, var(--accent) 50%, transparent);
   background: color-mix(in oklab, var(--primary) 20%, transparent);
+}
+
+/* Expanding sphere effect over the text */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  /* Softer, more diffused sphere using multiple stops and outer transparency */
+  background: radial-gradient(circle at center,
+    color-mix(in oklab, var(--accent) 55%, transparent) 0%,
+    color-mix(in oklab, var(--accent) 45%, transparent) 25%,
+    color-mix(in oklab, var(--primary) 60%, transparent) 55%,
+    color-mix(in oklab, var(--primary) 30%, transparent) 75%,
+    color-mix(in oklab, var(--primary) 10%, transparent) 88%,
+    transparent 100%);
+  transform: translate(-50%, -50%) scale(0.15);
+  opacity: 0;
+  /* More gradual animation */
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  /* Slight blur to diffuse the edges further; clipped by overflow on .nav-link */
+  filter: blur(10px);
+  pointer-events: none; /* do not block clicks */
+  z-index: 1; /* render above the link text to "cover" it */
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+  width: 220%;
+  height: 220%;
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-link::after { transition: none; }
 }
 
 .logo {
@@ -654,6 +696,45 @@ body { padding-bottom: 88px; }
 .lightbox .lb-btn.close { top: 20px; right: 20px; font-size: 28px; }
 .lightbox .lb-btn.prev { left: 20px; }
 .lightbox .lb-btn.next { right: 20px; }
+/* Counter inside lightbox */
+.lightbox .lb-counter {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  padding: .3rem .6rem;
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: .2px;
+  font-variant-numeric: tabular-nums;
+}
 
 /* Pointer hint on commons cards */
 #comunes .card.photo-only { cursor: zoom-in; }
+#comunes .card.photo-only { position: relative; }
+#comunes .photo-count {
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  padding: .2rem .5rem;
+  border-radius: 8px;
+  font-size: .85rem;
+  line-height: 1;
+  pointer-events: none;
+}
+
+
+/* Zonas comunes: show titles above photos, centered and bold */
+#comunes figure.card.photo-only {
+  display: flex;
+  flex-direction: column-reverse; /* caption above image without changing HTML */
+}
+#comunes figure.card.photo-only figcaption {
+  text-align: center;
+  font-weight: 700;
+  margin: 0 0 .6rem; /* small separation from the photo */
+}

@@ -244,6 +244,7 @@
     <button class="lb-btn close" type="button" aria-label="Cerrar" title="Cerrar">×</button>
     <button class="lb-btn prev" type="button" aria-label="Anterior" title="Anterior">❮</button>
     <button class="lb-btn next" type="button" aria-label="Siguiente" title="Siguiente">❯</button>
+    <div class="lb-counter" aria-live="polite"></div>
     <figure class="lb-figure">
       <img id="lightbox-img" alt="" src="" decoding="async">
       <figcaption id="lightbox-caption"></figcaption>
@@ -291,7 +292,6 @@
         balmes: [
           { src: 'img/fotos/Sala Balmes/Sala de estar Balmes.jpg', caption: 'Sala de estar Interior' },
           { src: 'img/fotos/Sala Balmes/Sala de estar Balmes.1.jpg', caption: 'Sala de estar Interior' },
-          { src: 'img/fotos/Sala Balmes/Sala de estar Balmes.2.jpg', caption: 'Sala de estar Interior' },
           { src: 'img/fotos/Sala Balmes/Sala de estar Balmes.3.jpg', caption: 'Sala de estar Interior' }
         ]
       };
@@ -299,6 +299,7 @@
       const lb = document.getElementById('lightbox');
       const lbImg = document.getElementById('lightbox-img');
       const lbCaption = document.getElementById('lightbox-caption');
+      const lbCounter = lb.querySelector('.lb-counter');
       const btnClose = lb.querySelector('.lb-btn.close');
       const btnPrev = lb.querySelector('.lb-btn.prev');
       const btnNext = lb.querySelector('.lb-btn.next');
@@ -315,6 +316,9 @@
         lbImg.src = item.src;
         lbImg.alt = item.caption || '';
         lbCaption.textContent = item.caption || '';
+        if (lbCounter) {
+          lbCounter.textContent = (currentIndex + 1) + ' / ' + len;
+        }
       }
 
       function open(galleryKey, startSrc) {
@@ -365,14 +369,28 @@
         else if (e.key === 'ArrowRight') show(currentIndex + 1);
       });
 
-      // Asociar a las figuras de #comunes
+      // Asociar a las figuras de #comunes y añadir contador total en miniaturas
       const figures = comunes.querySelectorAll('figure.card.photo-only');
+
+      function addCountBadge(figure, count) {
+        if (!figure) return;
+        // Evitar duplicados
+        if (figure.querySelector('.photo-count')) return;
+        const badge = document.createElement('div');
+        badge.className = 'photo-count';
+        badge.textContent = count + (count === 1 ? ' foto' : ' fotos');
+        badge.setAttribute('aria-label', 'Galería con ' + count + (count === 1 ? ' foto' : ' fotos'));
+        figure.appendChild(badge);
+      }
+
       if (figures[0]) {
         const img = figures[0].querySelector('img');
+        addCountBadge(figures[0], (galleries.pelayo || []).length);
         figures[0].addEventListener('click', () => open('pelayo', img ? img.currentSrc || img.src : undefined));
       }
       if (figures[1]) {
         const img = figures[1].querySelector('img');
+        addCountBadge(figures[1], (galleries.balmes || []).length);
         figures[1].addEventListener('click', () => open('balmes', img ? img.currentSrc || img.src : undefined));
       }
     })();
