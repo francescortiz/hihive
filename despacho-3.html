@@ -74,5 +74,95 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
+
+  <!-- Lightbox para Despacho 3 -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-caption" aria-hidden="true">
+    <button class="lb-btn close" type="button" aria-label="Cerrar" title="Cerrar">×</button>
+    <button class="lb-btn prev" type="button" aria-label="Anterior" title="Anterior">❮</button>
+    <button class="lb-btn next" type="button" aria-label="Siguiente" title="Siguiente">❯</button>
+    <div class="lb-counter" aria-live="polite"></div>
+    <figure class="lb-figure">
+      <img id="lightbox-img" alt="" src="" decoding="async">
+      <figcaption id="lightbox-caption"></figcaption>
+    </figure>
+  </div>
+
+  <script>
+    // Lightbox para las fotos del Despacho 3 en esta página
+    (function() {
+      const galleryEls = Array.from(document.querySelectorAll('.grid.grid-3 figure.card.photo-only img'));
+      if (!galleryEls.length) return;
+
+      // Construir galería desde las imágenes presentes
+      const gallery = galleryEls.map(img => ({
+        src: img.currentSrc || img.src,
+        caption: (img.closest('figure')?.querySelector('figcaption')?.textContent || '').trim()
+      }));
+
+      const lb = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lightbox-img');
+      const lbCaption = document.getElementById('lightbox-caption');
+      const lbCounter = lb.querySelector('.lb-counter');
+      const btnClose = lb.querySelector('.lb-btn.close');
+      const btnPrev = lb.querySelector('.lb-btn.prev');
+      const btnNext = lb.querySelector('.lb-btn.next');
+
+      let currentIndex = 0;
+      let lastActive = null;
+
+      function show(index) {
+        const len = gallery.length;
+        currentIndex = ((index % len) + len) % len;
+        const item = gallery[currentIndex];
+        lbImg.src = item.src;
+        lbImg.alt = item.caption || '';
+        lbCaption.textContent = item.caption || '';
+        if (lbCounter) lbCounter.textContent = (currentIndex + 1) + ' / ' + len;
+      }
+
+      function open(startIdx) {
+        lastActive = document.activeElement;
+        document.body.style.overflow = 'hidden';
+        lb.classList.add('open');
+        lb.removeAttribute('aria-hidden');
+        show(startIdx || 0);
+        btnClose.focus();
+      }
+
+      function close() {
+        lb.classList.remove('open');
+        lb.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        if (lastActive && lastActive.focus) lastActive.focus();
+      }
+
+      // Bind clicks en miniaturas
+      galleryEls.forEach((imgEl, idx) => {
+        const fig = imgEl.closest('figure');
+        if (!fig) return;
+        fig.style.cursor = 'zoom-in';
+        fig.addEventListener('click', (e) => {
+          e.preventDefault();
+          open(idx);
+        });
+      });
+
+      // Controles
+      btnClose.addEventListener('click', close);
+      btnPrev.addEventListener('click', () => show(currentIndex - 1));
+      btnNext.addEventListener('click', () => show(currentIndex + 1));
+
+      // Cerrar clic fondo
+      lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+
+      // Teclado
+      document.addEventListener('keydown', (e) => {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') close();
+        else if (e.key === 'ArrowLeft') show(currentIndex - 1);
+        else if (e.key === 'ArrowRight') show(currentIndex + 1);
+      });
+    })();
+  </script>
 </body>
 </html>

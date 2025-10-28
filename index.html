@@ -278,13 +278,14 @@
   </script>
 
   <script>
-    // Galería de Zonas comunes (lightbox)
+    // Lightbox genérico para galerías (Zonas comunes y Despachos)
     (function() {
+      // Sección Zonas comunes
       const comunes = document.querySelector('#comunes');
-      if (!comunes) return;
 
-      // Definición de galerías
+      // Definición de galerías disponibles en la home
       const galleries = {
+        // Zonas comunes
         pelayo: [
           { src: 'img/fotos/Sala Pelayo/Sala de estar Pelayo.1.jpg', caption: 'Sala de estar Pelayo' },
           { src: 'img/fotos/Sala Pelayo/Sala de estar Pelayo.2.jpg', caption: 'Sala de estar Pelayo' },
@@ -294,6 +295,12 @@
           { src: 'img/fotos/Sala Balmes/Sala de estar Balmes.jpg', caption: 'Sala de estar Interior' },
           { src: 'img/fotos/Sala Balmes/Sala de estar Balmes.1.jpg', caption: 'Sala de estar Interior' },
           { src: 'img/fotos/Sala Balmes/Sala de estar Balmes.3.jpg', caption: 'Sala de estar Interior' }
+        ],
+        // Despachos (actualmente solo Despacho 3 tiene fotos)
+        despacho3: [
+          { src: 'img/fotos/Despacho 3/Despacho 3 ventana.jpg', caption: 'Ventana del despacho' },
+          { src: 'img/fotos/Despacho 3/Despacho 3 mesas pared.jpg', caption: 'Mesas junto a la pared' },
+          { src: 'img/fotos/Despacho 3/Despacho 3 mesas ventana.jpg', caption: 'Mesas junto a la ventana' }
         ]
       };
 
@@ -370,29 +377,44 @@
         else if (e.key === 'ArrowRight') show(currentIndex + 1);
       });
 
-      // Asociar a las figuras de #comunes y añadir contador total en miniaturas
-      const figures = comunes.querySelectorAll('figure.card.photo-only');
+      // Zonas comunes: asociar figuras y añadir contador total en miniaturas
+      if (comunes) {
+        const figures = comunes.querySelectorAll('figure.card.photo-only');
 
-      function addCountBadge(figure, count) {
-        if (!figure) return;
-        // Evitar duplicados
-        if (figure.querySelector('.photo-count')) return;
-        const badge = document.createElement('div');
-        badge.className = 'photo-count';
-        badge.textContent = count + (count === 1 ? ' foto' : ' fotos');
-        badge.setAttribute('aria-label', 'Galería con ' + count + (count === 1 ? ' foto' : ' fotos'));
-        figure.appendChild(badge);
+        function addCountBadge(figure, count) {
+          if (!figure) return;
+          // Evitar duplicados
+          if (figure.querySelector('.photo-count')) return;
+          const badge = document.createElement('div');
+          badge.className = 'photo-count';
+          badge.textContent = count + (count === 1 ? ' foto' : ' fotos');
+          badge.setAttribute('aria-label', 'Galería con ' + count + (count === 1 ? ' foto' : ' fotos'));
+          figure.appendChild(badge);
+        }
+
+        if (figures[0]) {
+          const img = figures[0].querySelector('img');
+          addCountBadge(figures[0], (galleries.pelayo || []).length);
+          figures[0].addEventListener('click', () => open('pelayo', img ? img.currentSrc || img.src : undefined));
+        }
+        if (figures[1]) {
+          const img = figures[1].querySelector('img');
+          addCountBadge(figures[1], (galleries.balmes || []).length);
+          figures[1].addEventListener('click', () => open('balmes', img ? img.currentSrc || img.src : undefined));
+        }
       }
 
-      if (figures[0]) {
-        const img = figures[0].querySelector('img');
-        addCountBadge(figures[0], (galleries.pelayo || []).length);
-        figures[0].addEventListener('click', () => open('pelayo', img ? img.currentSrc || img.src : undefined));
-      }
-      if (figures[1]) {
-        const img = figures[1].querySelector('img');
-        addCountBadge(figures[1], (galleries.balmes || []).length);
-        figures[1].addEventListener('click', () => open('balmes', img ? img.currentSrc || img.src : undefined));
+      // Despachos (home): permitir ver fotos en grande al hacer click en la miniatura del Despacho 3
+      const despacho3ThumbLink = document.querySelector('#despachos a[href="despacho-3.html"]');
+      if (despacho3ThumbLink) {
+        despacho3ThumbLink.addEventListener('click', (e) => {
+          // Abrir lightbox en lugar de navegar si hay galería
+          if (galleries.despacho3 && galleries.despacho3.length) {
+            e.preventDefault();
+            const img = despacho3ThumbLink.querySelector('img');
+            open('despacho3', img ? img.currentSrc || img.src : undefined);
+          }
+        });
       }
     })();
   </script>

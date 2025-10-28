@@ -528,21 +528,19 @@ input, select {
 
 img.marca-ocupado {
   position: absolute;
-  /*top: 128px;*/
-  /*right: 18px;*/
-  left: 50%;
-  top: 92px;
-  transform: translate(-50%, -50%) rotate(-15deg);
-  width: 164px;
+  top: 10px;
+  left: 10px;
+  transform: none;
+  width: 96px;
   height: auto;
-  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .5));
+  filter: grayscale(100%) opacity(.9) drop-shadow(0 1px 2px rgba(0, 0, 0, .35));
   pointer-events: none;
   user-select: none
 }
 
 @media (min-width: 640px) {
   .marca-ocupado {
-    width: 72px
+    width: 112px
   }
 }
 
@@ -718,3 +716,32 @@ body { padding-bottom: 88px; }
 #despachos.section {
   padding-top: 1rem; /* was 2.5rem via .section */
 }
+
+
+/* Minimalist placeholder image for Despachos under construction */
+/* Applies only to cards whose first image is the white placeholder */
+#despachos .card:has(> img[src$="blank-white.svg"]) {
+  position: relative; /* ensure ::before positioning */
+}
+#despachos .card:has(> img[src$="blank-white.svg"])::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 180px; /* same as .card img */
+  /* Subtle ocre-tinted background with a soft vignette */
+  background-color: color-mix(in oklab, var(--bg-soft) 35%, #ffffff 65%);
+  background-image:
+    radial-gradient(ellipse at 50% 40%, rgba(0,0,0,.06), rgba(0,0,0,0) 60%),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' aria-hidden='true'><path fill='%236b7280' d='M32 6L2 58h60L32 6z'/><rect x='30' y='26' width='4' height='18' fill='%23ffffff'/><circle cx='32' cy='50' r='3' fill='%23ffffff'/></svg>");
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, center;
+  background-size: 120% 100%, 96px 96px; /* vignette, icon */
+  border-bottom: 1px solid var(--card-border);
+  z-index: 0;
+}
+/* Hide the white placeholder image only when the selector matches */
+#despachos .card:has(> img[src$="blank-white.svg"]) > img[src$="blank-white.svg"] {
+  display: none;
+}
+/* Ensure the top-left construction mark stays above the placeholder */
+#despachos img.marca-ocupado { z-index: 1; }
