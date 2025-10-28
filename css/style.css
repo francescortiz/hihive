@@ -745,3 +745,7 @@ body { padding-bottom: 88px; }
 }
 /* Ensure the top-left construction mark stays above the placeholder */
 #despachos img.marca-ocupado { z-index: 1; }
+
+
+/* Pointer hint on Mesas cards */
+#mesas .card { cursor: zoom-in; }

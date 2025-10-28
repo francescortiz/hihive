@@ -28,7 +28,7 @@
         <a href="#despachos" class="nav-link">Despachos</a>
         <a href="#mesas" class="nav-link">Mesas</a>
         <a href="#comunes" class="nav-link">Zonas comunes</a>
-        <a href="#servicios" class="nav-link">Servicios</a>
+        <a href="#servicios" class="nav-link">Servicios y equipación</a>
         <a href="#info" class="nav-link">Solicitar info</a>
         <a href="#condiciones" class="nav-link">Condiciones</a>
       </nav>
@@ -109,7 +109,7 @@
       <h2>Mesas de trabajo</h2>
       <div class="grid grid-5">
         <article class="card">
-          <img src="img/fotos/Mesas/Mesas.2.jpg" alt="Todas las mesas" loading="lazy">
+          <img src="img/fotos/Mesas/Mesas.2.jpg" alt="Mesas de trabajo" loading="lazy">
           <div class="card-body">
             <h3>Mesa 1</h3>
             <p class="price">160€ / mes</p>
@@ -117,7 +117,7 @@
           </div>
         </article>
         <article class="card">
-          <img src="img/fotos/Mesas/Mesas.2.jpg" alt="Todas las mesas" loading="lazy">
+          <img src="img/fotos/Mesas/Mesas.2.jpg" alt="Mesas de trabajo" loading="lazy">
           <div class="card-body">
             <h3>Mesa 2</h3>
             <p class="price">160€ / mes</p>
@@ -125,7 +125,7 @@
           </div>
         </article>
         <article class="card">
-          <img src="img/fotos/Mesas/Mesas.2.jpg" alt="Todas las mesas" loading="lazy">
+          <img src="img/fotos/Mesas/Mesas.2.jpg" alt="Mesas de trabajo" loading="lazy">
           <div class="card-body">
             <h3>Mesa 3</h3>
             <p class="price">160€ / mes</p>
@@ -133,7 +133,7 @@
           </div>
         </article>
         <article class="card">
-          <img src="img/fotos/Mesas/Mesas.2.jpg" alt="Todas las mesas" loading="lazy">
+          <img src="img/fotos/Mesas/Mesas.2.jpg" alt="Mesas de trabajo" loading="lazy">
           <div class="card-body">
             <h3>Mesa 4</h3>
             <p class="price">160€ / mes</p>
@@ -141,7 +141,7 @@
           </div>
         </article>
         <article class="card">
-          <img src="img/fotos/Mesas/Mesas.2.jpg" alt="Todas las mesas" loading="lazy">
+          <img src="img/fotos/Mesas/Mesas.2.jpg" alt="Mesas de trabajo" loading="lazy">
           <div class="card-body">
             <h3>Mesa 5</h3>
             <p class="price">160€ / mes</p>
@@ -166,7 +166,7 @@
     </section>
 
     <section id="servicios" class="section">
-      <h2>Servicios</h2>
+      <h2>Servicios y equipación</h2>
       <ul class="services">
         <li>Internet por cable y wifi</li>
         <li>Bomba de frío/calor</li>
@@ -296,6 +296,12 @@
           { src: 'img/fotos/Sala Balmes/Sala de estar Balmes.1.jpg', caption: 'Sala de estar Interior' },
           { src: 'img/fotos/Sala Balmes/Sala de estar Balmes.3.jpg', caption: 'Sala de estar Interior' }
         ],
+        // Mesas de trabajo
+        mesas: [
+          { src: 'img/fotos/Mesas/Mesas.1.jpg', caption: 'Mesas de trabajo' },
+          { src: 'img/fotos/Mesas/Mesas.2.jpg', caption: 'Mesas de trabajo' },
+          { src: 'img/fotos/Mesas/Mesas.4.jpg', caption: 'Mesas de trabajo' }
+        ],
         // Despachos (actualmente solo Despacho 3 tiene fotos)
         despacho3: [
           { src: 'img/fotos/Despacho 3/Despacho 3 ventana.jpg', caption: 'Ventana del despacho' },
@@ -414,6 +420,20 @@
             const img = despacho3ThumbLink.querySelector('img');
             open('despacho3', img ? img.currentSrc || img.src : undefined);
           }
+        });
+      }
+
+      // Mesas de trabajo: abrir todas las fotos en grande al clicar
+      const mesasSection = document.querySelector('#mesas');
+      if (mesasSection && galleries.mesas && galleries.mesas.length) {
+        const mesaThumbs = mesasSection.querySelectorAll('.card img');
+        mesaThumbs.forEach((imgEl) => {
+          const card = imgEl.closest('.card');
+          if (!card) return;
+          card.addEventListener('click', (e) => {
+            e.preventDefault();
+            open('mesas', imgEl.currentSrc || imgEl.src);
+          });
         });
       }
     })();
