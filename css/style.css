@@ -610,3 +610,50 @@ body { padding-bottom: 88px; }
 @media (prefers-reduced-motion: reduce) {
   .to-top { transition: none; }
 }
+
+
+/* Show full images in Zonas comunes (no crop) */
+#comunes .card.photo-only img {
+  height: auto;
+  object-fit: contain;
+}
+
+/* Double the size of Zonas comunes cards by widening columns */
+#comunes .grid.grid-3 {
+  grid-template-columns: repeat(auto-fill, minmax(520px, 1fr));
+}
+
+/* Lightbox for Zonas comunes */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.lightbox.open { display: flex; }
+.lightbox .lb-figure { margin: 0; max-width: 95vw; max-height: 90vh; text-align: center; color: #ddd; }
+.lightbox .lb-figure img { max-width: 95vw; max-height: 85vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,.5); }
+.lightbox .lb-figure figcaption { margin-top: .5rem; font-size: .95rem; color: #ccc; }
+.lightbox .lb-btn {
+  position: absolute;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 999px;
+  width: 44px; height: 44px;
+  display: grid; place-items: center;
+  font-size: 24px;
+  cursor: pointer;
+  transition: background .2s ease;
+}
+.lightbox .lb-btn:hover { background: rgba(255,255,255,0.2); }
+.lightbox .lb-btn:focus { outline: 2px solid #93c5fd; outline-offset: 2px; }
+.lightbox .lb-btn.close { top: 20px; right: 20px; font-size: 28px; }
+.lightbox .lb-btn.prev { left: 20px; }
+.lightbox .lb-btn.next { right: 20px; }
+
+/* Pointer hint on commons cards */
+#comunes .card.photo-only { cursor: zoom-in; }
