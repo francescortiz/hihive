@@ -496,7 +496,12 @@ input, select {
   padding: .7rem 1rem;
   border-radius: 999px;
   cursor: pointer;
-  font-weight: 600
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  line-height: 1;
+  text-decoration: none
 }
 
 .btn:hover {
@@ -757,3 +762,22 @@ body { padding-bottom: 88px; }
   color: #7c2d12; /* orange-900 for strong contrast */
   border-color: color-mix(in oklab, var(--accent-2) 75%, transparent);
 }
+
+
+/* Brand-styled contact buttons */
+.btn.whatsapp {
+  background: linear-gradient(90deg, #128C7E, #25D366);
+  border-color: color-mix(in oklab, #128C7E 60%, transparent);
+  color: #ffffff;
+}
+
+.btn.telegram {
+  background: linear-gradient(90deg, #0088cc, #229ED9);
+  border-color: color-mix(in oklab, #0088cc 60%, transparent);
+  color: #ffffff;
+}
+
+.btn .icon { display: inline-block; }
+
+/* Arrange contact buttons nicely */
+.form-actions { display: flex; gap: .5rem; flex-wrap: wrap; }
