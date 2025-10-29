@@ -40,6 +40,7 @@
   <main>
     <section id="despachos" class="section">
       <h2>Despachos</h2>
+      <p>Todos nuestros despachos vienen equipados tal cual están en las fotos.</p>
       <div class="grid">
         <article class="card">
           <img class="marca-ocupado" src="img/ocupado.svg" alt="" aria-hidden="true">
@@ -390,18 +391,8 @@
         }
       }
 
-      // Despachos (home): permitir ver fotos en grande al hacer click en la miniatura del Despacho 3
-      const despacho3ThumbLink = document.querySelector('#despachos a[href="despacho-3.html"]');
-      if (despacho3ThumbLink) {
-        despacho3ThumbLink.addEventListener('click', (e) => {
-          // Abrir lightbox en lugar de navegar si hay galería
-          if (galleries.despacho3 && galleries.despacho3.length) {
-            e.preventDefault();
-            const img = despacho3ThumbLink.querySelector('img');
-            open('despacho3', img ? img.currentSrc || img.src : undefined);
-          }
-        });
-      }
+      // Despachos (home): al hacer click en la miniatura se navega igual que al hacer click en el nombre (sin lightbox)
+      // Nota: Si en el futuro se quiere lightbox aquí, eliminar este bloque y replicar la lógica de open() similar a Zonas comunes.
 
       // Mesas de trabajo: abrir todas las fotos en grande al clicar
       const mesasSection = document.querySelector('#mesas');
