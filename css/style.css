@@ -437,15 +437,15 @@ body {
 }
 
 .badge.libre {
-  background: color-mix(in oklab, var(--success) 20%, transparent);
-  color: #d1fae5;
-  border-color: color-mix(in oklab, var(--success) 50%, transparent)
+  background: color-mix(in oklab, var(--success) 28%, #ffffff 72%);
+  color: #065f46; /* emerald-800 for strong contrast */
+  border-color: color-mix(in oklab, var(--success) 60%, transparent)
 }
 
 .badge.ocupado {
-  background: color-mix(in oklab, var(--danger) 15%, transparent);
-  color: #fee2e2;
-  border-color: color-mix(in oklab, var(--danger) 45%, transparent)
+  background: color-mix(in oklab, var(--danger) 24%, #ffffff 76%);
+  color: #7f1d1d; /* red-900 for strong contrast */
+  border-color: color-mix(in oklab, var(--danger) 60%, transparent)
 }
 
 /* Services */
@@ -749,3 +749,11 @@ body { padding-bottom: 88px; }
 
 /* Pointer hint on Mesas cards */
 #mesas .card { cursor: zoom-in; }
+
+
+/* Esferas de "No disponible" en naranja (solo cuando aria-label indica ese estado) */
+.badge.ocupado[aria-label="estado: no disponible"] {
+  background: color-mix(in oklab, var(--accent) 42%, #ffffff 58%);
+  color: #7c2d12; /* orange-900 for strong contrast */
+  border-color: color-mix(in oklab, var(--accent-2) 75%, transparent);
+}
