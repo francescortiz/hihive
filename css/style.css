@@ -781,3 +781,11 @@ body { padding-bottom: 88px; }
 
 /* Arrange contact buttons nicely */
 .form-actions { display: flex; gap: .5rem; flex-wrap: wrap; }
+
+
+/* Quitar marco de tarjetas en sección Despachos (home) */
+#despachos .card {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
