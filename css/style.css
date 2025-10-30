@@ -288,8 +288,8 @@ body {
 /* Header */
 .site-header {
   position: relative;
-  padding-top: 5.5rem;
-  padding-bottom: 2rem;
+  padding-top: 4rem;
+  padding-bottom: .75rem;
   text-align: center;
 }
 
@@ -358,6 +358,36 @@ body {
   margin: .25rem 0 0;
   color: var(--muted)
 }
+
+/* Brand row: place logo to the left of the title */
+.brand-row {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  justify-content: center;
+}
+/* Much larger logo when used inline with the title */
+.brand-row .brand-logo {
+  margin: 0; /* override centering */
+  width: 120px;
+}
+@media (min-width: 768px) {
+  .brand-row .brand-logo { width: 160px; }
+}
+
+/* Big brand logo at top */
+.brand-logo {
+  display: block;
+  margin: 0 auto;
+  width: min(50%, 220px);
+  height: auto;
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,.25));
+}
+@media (min-width: 768px) {
+  .brand-logo { width: min(35%, 280px); }
+}
+/* Ajuste: compactar espacio inferior del header */
+.site-header { padding-bottom: .5rem; }
 
 /* Sections */
 .section {
