@@ -25,12 +25,12 @@ html {
  */
 
 ::-moz-selection {
-  background: #b3d4fc;
+  background: #cfcfcf;
   text-shadow: none;
 }
 
 ::selection {
-  background: #b3d4fc;
+  background: #cfcfcf;
   text-shadow: none;
 }
 
@@ -248,35 +248,35 @@ textarea {
 
 /* ==== HiHive custom styles ==== */
 :root {
-  --bg: #0c0a09; /* stone-950 base (warm dark) */
-  --bg-soft: #1c1917; /* stone-900 */
-  --text: #e5e7eb; /* gray-200 */
-  --muted: #9ca3af; /* gray-400 */
-  --primary: #c2410c; /* burnt orange */
-  --accent: #f97316; /* vivid orange */
-  --accent-2: #ea580c; /* deep orange */
-  --card: #0f0d0a; /* warm dark card */
-  --card-border: #27272a; /* neutral border */
-  --success: #10b981; /* emerald */
-  --danger: #ef4444; /* red-500 */
+  --bg: #111111; /* dark gray */
+  --bg-soft: #1e1e1e; /* softer dark gray */
+  --text: #e5e5e5; /* light gray text */
+  --muted: #a3a3a3; /* muted gray */
+  --primary: #737373; /* neutral primary */
+  --accent: #9e9e9e; /* neutral accent */
+  --accent-2: #6e6e6e; /* deeper neutral */
+  --card: #181818; /* card background */
+  --card-border: #2d2d2d; /* card border */
+  --success: #b5b5b5; /* neutral success */
+  --danger: #8a8a8a; /* neutral danger */
 }
 
 :root {
-  --bg: #0c0a09; /* stone-950 base (warm dark) */
-  --bg-soft: #1c1917; /* stone-900 */
-  --text: #e5e7eb; /* gray-200 */
-  --muted: #9ca3af; /* gray-400 */
-  --primary: #c2410c; /* burnt orange */
-  --accent: #f97316; /* vivid orange */
-  --accent-2: #ea580c; /* deep orange */
-  --card: #0f0d0a; /* warm dark card */
-  --card-border: #27272a; /* neutral border */
-  --success: #10b981; /* emerald */
-  --danger: #ef4444; /* red-500 */
+  --bg: #111111; /* dark gray */
+  --bg-soft: #1e1e1e; /* softer dark gray */
+  --text: #e5e5e5; /* light gray text */
+  --muted: #a3a3a3; /* muted gray */
+  --primary: #737373; /* neutral primary */
+  --accent: #9e9e9e; /* neutral accent */
+  --accent-2: #6e6e6e; /* deeper neutral */
+  --card: #181818; /* card background */
+  --card-border: #2d2d2d; /* card border */
+  --success: #b5b5b5; /* neutral success */
+  --danger: #8a8a8a; /* neutral danger */
 }
 
 html, body {
-  background: linear-gradient(135deg, var(--bg), #1c1917 40%, #2a1400) fixed;
+  background: linear-gradient(135deg, var(--bg), var(--bg-soft) 40%, var(--bg-soft)) fixed;
   color: var(--text);
 }
 
@@ -342,16 +342,16 @@ body {
   color: transparent;
 }
 
-/* Color azul para las letras "Hi" de HiHive */
+/* Letras "Hi" en gris para modo monocromático */
 .logo .logo-hi {
   background: none;
   -webkit-background-clip: initial;
   background-clip: initial;
-  color: #3b82f6; /* blue-500 */
+  color: #9e9e9e;
 }
 /* También en otros contextos (p. ej., footer) */
 .logo-hi {
-  color: #3b82f6;
+  color: #9e9e9e;
 }
 
 .subtitle {
@@ -438,13 +438,13 @@ body {
 
 .badge.libre {
   background: color-mix(in oklab, var(--success) 28%, #ffffff 72%);
-  color: #065f46; /* emerald-800 for strong contrast */
+  color: #1f2937; /* gray-800 for strong contrast */
   border-color: color-mix(in oklab, var(--success) 60%, transparent)
 }
 
 .badge.ocupado {
   background: color-mix(in oklab, var(--danger) 24%, #ffffff 76%);
-  color: #7f1d1d; /* red-900 for strong contrast */
+  color: #1f2937; /* gray-800 for strong contrast */
   border-color: color-mix(in oklab, var(--danger) 60%, transparent)
 }
 
@@ -484,7 +484,7 @@ input, select {
   padding: .6rem .7rem;
   border-radius: 10px;
   border: 1px solid var(--card-border);
-  background: color-mix(in oklab, var(--bg) 70%, #0d1325);
+  background: color-mix(in oklab, var(--bg) 70%, #1a1a1a);
   color: var(--text)
 }
 
@@ -552,17 +552,17 @@ img.marca-ocupado {
 
 /* ==== Light theme override ==== */
 :root {
-  --bg: #f6e7c6; /* light ochre */
-  --bg-soft: #f1d8a8; /* soft ochre */
-  --text: #111827; /* gray-900 */
-  --muted: #6b7280; /* gray-500 */
-  --primary: #c2410c; /* burnt orange */
-  --accent: #f97316; /* vivid orange */
-  --accent-2: #ea580c; /* deep orange */
+  --bg: #f5f5f5; /* light gray */
+  --bg-soft: #e5e5e5; /* softer light gray */
+  --text: #111111; /* near black */
+  --muted: #6b6b6b; /* medium gray */
+  --primary: #9e9e9e; /* neutral primary */
+  --accent: #bfbfbf; /* neutral accent */
+  --accent-2: #8a8a8a; /* deeper neutral */
   --card: #ffffff; /* light card */
-  --card-border: #e5e7eb; /* light border */
-  --success: #10b981; /* emerald */
-  --danger: #ef4444; /* red-500 */
+  --card-border: #e5e5e5; /* light border */
+  --success: #c7c7c7; /* neutral success */
+  --danger: #a3a3a3; /* neutral danger */
 }
 
 html, body {
@@ -578,20 +578,20 @@ input, select {
 
 /* ==== Light theme override (fix) ==== */
 :root {
-  --bg: #f6e7c6;
-  --bg-soft: #f1d8a8;
-  --text: #111827;
-  --muted: #6b7280;
-  --primary: #c2410c;
-  --accent: #f97316;
-  --accent-2: #ea580c;
+  --bg: #f5f5f5;
+  --bg-soft: #e5e5e5;
+  --text: #111111;
+  --muted: #6b6b6b;
+  --primary: #9e9e9e;
+  --accent: #bfbfbf;
+  --accent-2: #8a8a8a;
   --card: #ffffff;
-  --card-border: #e5e7eb;
-  --success: #10b981;
-  --danger: #ef4444;
+  --card-border: #e5e5e5;
+  --success: #c7c7c7;
+  --danger: #a3a3a3;
 }
 
-html, body { background: linear-gradient(135deg, var(--bg), #ffffff 40%, #fff) fixed; color: var(--text); }
+html, body { background: linear-gradient(135deg, var(--bg), var(--bg-soft) 40%, var(--bg-soft)) fixed; color: var(--text); }
 input, select { background: var(--card); color: var(--text); }
 
 
@@ -669,7 +669,7 @@ body { padding-bottom: 88px; }
   transition: background .2s ease;
 }
 .lightbox .lb-btn:hover { background: rgba(255,255,255,0.2); }
-.lightbox .lb-btn:focus { outline: 2px solid #93c5fd; outline-offset: 2px; }
+.lightbox .lb-btn:focus { outline: 2px solid #9e9e9e; outline-offset: 2px; }
 .lightbox .lb-btn.close { top: 20px; right: 20px; font-size: 28px; }
 .lightbox .lb-btn.prev { left: 20px; }
 .lightbox .lb-btn.next { right: 20px; }
@@ -759,21 +759,21 @@ body { padding-bottom: 88px; }
 /* Esferas de "No disponible" en naranja (solo cuando aria-label indica ese estado) */
 .badge.ocupado[aria-label="estado: no disponible"] {
   background: color-mix(in oklab, var(--accent) 42%, #ffffff 58%);
-  color: #7c2d12; /* orange-900 for strong contrast */
+  color: #1f2937; /* gray-800 for strong contrast */
   border-color: color-mix(in oklab, var(--accent-2) 75%, transparent);
 }
 
 
 /* Brand-styled contact buttons */
 .btn.whatsapp {
-  background: linear-gradient(90deg, #128C7E, #25D366);
-  border-color: color-mix(in oklab, #128C7E 60%, transparent);
+  background: linear-gradient(90deg, #6e6e6e, #bdbdbd);
+  border-color: color-mix(in oklab, #8a8a8a 60%, transparent);
   color: #ffffff;
 }
 
 .btn.telegram {
-  background: linear-gradient(90deg, #0088cc, #229ED9);
-  border-color: color-mix(in oklab, #0088cc 60%, transparent);
+  background: linear-gradient(90deg, #6e6e6e, #bdbdbd);
+  border-color: color-mix(in oklab, #8a8a8a 60%, transparent);
   color: #ffffff;
 }
 
