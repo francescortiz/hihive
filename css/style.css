@@ -796,14 +796,14 @@ body { padding-bottom: 88px; }
 
 /* Brand-styled contact buttons */
 .btn.whatsapp {
-  background: linear-gradient(90deg, #6e6e6e, #bdbdbd);
-  border-color: color-mix(in oklab, #8a8a8a 60%, transparent);
+  background: linear-gradient(90deg, #25D366, #128C7E);
+  border-color: color-mix(in oklab, #128C7E 70%, transparent);
   color: #ffffff;
 }
 
 .btn.telegram {
-  background: linear-gradient(90deg, #6e6e6e, #bdbdbd);
-  border-color: color-mix(in oklab, #8a8a8a 60%, transparent);
+  background: linear-gradient(90deg, #229ED9, #0088cc);
+  border-color: color-mix(in oklab, #0088cc 70%, transparent);
   color: #ffffff;
 }
 
