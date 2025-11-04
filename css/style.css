@@ -261,20 +261,6 @@ textarea {
   --danger: #8a8a8a; /* neutral danger */
 }
 
-:root {
-  --bg: #111111; /* dark gray */
-  --bg-soft: #1e1e1e; /* softer dark gray */
-  --text: #e5e5e5; /* light gray text */
-  --muted: #a3a3a3; /* muted gray */
-  --primary: #737373; /* neutral primary */
-  --accent: #9e9e9e; /* neutral accent */
-  --accent-2: #6e6e6e; /* deeper neutral */
-  --card: #181818; /* card background */
-  --card-border: #2d2d2d; /* card border */
-  --success: #b5b5b5; /* neutral success */
-  --danger: #8a8a8a; /* neutral danger */
-}
-
 html, body {
   background: linear-gradient(135deg, var(--bg), var(--bg-soft) 40%, var(--bg-soft)) fixed;
   color: var(--text);
@@ -328,14 +314,12 @@ body {
 }
 
 
-
-
 .logo {
   margin: .25rem 0 0;
   font-size: clamp(2.5rem, 4vw + 1rem, 4rem);
   line-height: 1.1;
   font-weight: 800;
-  letter-spacing: .5px;
+  letter-spacing: 0.5px;
   background: linear-gradient(90deg, var(--primary), var(--accent));
   -webkit-background-clip: text;
   background-clip: text;
@@ -344,19 +328,19 @@ body {
 
 /* Letras "Hi" en gris para modo monocromático */
 .logo .logo-hi {
+  line-height: 4rem;
   background: none;
   -webkit-background-clip: initial;
   background-clip: initial;
   color: #9e9e9e;
 }
-/* También en otros contextos (p. ej., footer) */
-.logo-hi {
-  color: #9e9e9e;
-}
 
 .subtitle {
-  margin: .25rem 0 0;
-  color: var(--muted)
+  margin: .25rem 0 1rem;
+  font-size: clamp(1.25rem, 2vw + .75rem, 1.5rem);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: var(--text)
 }
 
 /* Brand row: place logo to the left of the title */
@@ -365,14 +349,19 @@ body {
   align-items: center;
   gap: .5rem;
   justify-content: center;
+  padding: 2rem 0 1rem;
 }
+
 /* Much larger logo when used inline with the title */
 .brand-row .brand-logo {
   margin: 0; /* override centering */
   width: 120px;
 }
+
 @media (min-width: 768px) {
-  .brand-row .brand-logo { width: 160px; }
+  .brand-row .brand-logo {
+    width: 160px;
+  }
 }
 
 /* Big brand logo at top */
@@ -381,13 +370,18 @@ body {
   margin: 0 auto;
   width: min(50%, 220px);
   height: auto;
-  filter: drop-shadow(0 8px 24px rgba(0,0,0,.25));
 }
+
 @media (min-width: 768px) {
-  .brand-logo { width: min(35%, 280px); }
+  .brand-logo {
+    width: min(35%, 280px);
+  }
 }
+
 /* Ajuste: compactar espacio inferior del header */
-.site-header { padding-bottom: .5rem; }
+.site-header {
+  padding-bottom: .5rem;
+}
 
 /* Sections */
 .section {
@@ -402,6 +396,14 @@ body {
   font-size: 1.75rem;
   margin: 0 0 1rem;
   font-weight: 700;
+  text-align: center;
+}
+
+.section > p {
+  margin: 0 0 1.5rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  text-align: center;
 }
 
 /* Grid and cards */
@@ -416,7 +418,7 @@ body {
 }
 
 .grid-3 {
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(264px, 1fr));
 }
 
 .card {
@@ -475,23 +477,25 @@ body {
 .badge.ocupado {
   background: color-mix(in oklab, var(--danger) 24%, #ffffff 76%);
   color: #1f2937; /* gray-800 for strong contrast */
-  border-color: color-mix(in oklab, var(--danger) 60%, transparent)
+  border-color: color-mix(in oklab, var(--danger) 60%, transparent);
 }
 
 /* Services */
 .services {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: .5rem 1rem;
-  padding: 0;
   list-style: none;
+  padding: 0;
+  margin: 0;
+  /*display: grid;*/
+  /*grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));*/
+  /*gap: 1rem;*/
 }
 
 .services li {
   padding: .5rem .75rem;
   border: 1px dashed var(--card-border);
   border-radius: 10px;
-  background: color-mix(in oklab, var(--primary) 10%, transparent)
+  background: color-mix(in oklab, var(--primary) 20%, #ffffff);
+  margin-bottom: 0.5rem;
 }
 
 /* Form */
@@ -538,9 +542,6 @@ input, select {
   filter: brightness(1.05)
 }
 
-.form-actions {
-  margin-top: 1rem
-}
 
 /* Footer */
 .site-footer {
@@ -582,17 +583,17 @@ img.marca-ocupado {
 
 /* ==== Light theme override ==== */
 :root {
-  --bg: #f5f5f5; /* light gray */
-  --bg-soft: #e5e5e5; /* softer light gray */
-  --text: #111111; /* near black */
+  --bg: #f5f4f1; /* light gray */
+  --bg-soft: #f0efe6; /* light gray */
+  --text: #000000; /* black */
   --muted: #6b6b6b; /* medium gray */
-  --primary: #9e9e9e; /* neutral primary */
-  --accent: #bfbfbf; /* neutral accent */
-  --accent-2: #8a8a8a; /* deeper neutral */
-  --card: #ffffff; /* light card */
-  --card-border: #e5e5e5; /* light border */
-  --success: #c7c7c7; /* neutral success */
-  --danger: #a3a3a3; /* neutral danger */
+  --primary: #FFCB62; /* corporate gold */
+  --accent: #FFCB62; /* corporate gold */
+  --accent-2: #000000; /* black */
+  --card: #ffffff; /* white */
+  --card-border: #e3e1de; /* light border */
+  --success: #64bb48; /* gold for success */
+  --danger: #e65252; /* black for danger */
 }
 
 html, body {
@@ -606,28 +607,22 @@ input, select {
 }
 
 
-/* ==== Light theme override (fix) ==== */
-:root {
-  --bg: #f5f5f5;
-  --bg-soft: #e5e5e5;
-  --text: #111111;
-  --muted: #6b6b6b;
-  --primary: #9e9e9e;
-  --accent: #bfbfbf;
-  --accent-2: #8a8a8a;
-  --card: #ffffff;
-  --card-border: #e5e5e5;
-  --success: #c7c7c7;
-  --danger: #a3a3a3;
+html, body {
+  background: linear-gradient(135deg, var(--bg), var(--bg-soft) 40%, var(--bg-soft)) fixed;
+  color: var(--text);
 }
 
-html, body { background: linear-gradient(135deg, var(--bg), var(--bg-soft) 40%, var(--bg-soft)) fixed; color: var(--text); }
-input, select { background: var(--card); color: var(--text); }
+input, select {
+  background: var(--card);
+  color: var(--text);
+}
 
 
 /* ==== Scroll-to-top button ==== */
 /* Reserve space at the bottom so the fixed button never covers content */
-body { padding-bottom: 88px; }
+body {
+  padding-bottom: 88px;
+}
 
 .to-top {
   position: fixed;
@@ -643,7 +638,7 @@ body { padding-bottom: 88px; }
   border: 1px solid color-mix(in oklab, var(--accent) 50%, transparent);
   background: linear-gradient(90deg, var(--primary), var(--accent));
   color: #fff;
-  box-shadow: 0 8px 24px rgba(0,0,0,.25);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .25);
   opacity: 0;
   pointer-events: none;
   transition: opacity .2s ease;
@@ -654,17 +649,22 @@ body { padding-bottom: 88px; }
   pointer-events: auto;
 }
 
-.to-top svg { width: 22px; height: 22px; }
+.to-top svg {
+  width: 22px;
+  height: 22px;
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .to-top { transition: none; }
+  .to-top {
+    transition: none;
+  }
 }
 
 
 /* Show full images in Zonas comunes (no crop) */
 #comunes .card.photo-only img {
   height: auto;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 /* Double the size of Zonas comunes cards by widening columns */
@@ -682,50 +682,106 @@ body { padding-bottom: 88px; }
   justify-content: center;
   z-index: 1000;
 }
-.lightbox.open { display: flex; }
-.lightbox .lb-figure { margin: 0; max-width: 95vw; max-height: 90vh; text-align: center; color: #ddd; }
-.lightbox .lb-figure img { max-width: 95vw; max-height: 85vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,.5); }
-.lightbox .lb-figure figcaption { margin-top: .5rem; font-size: .95rem; color: #ccc; }
+
+.lightbox.open {
+  display: flex;
+}
+
+.lightbox .lb-figure {
+  margin: 0;
+  max-width: 95vw;
+  max-height: 90vh;
+  text-align: center;
+  color: #ddd;
+}
+
+.lightbox .lb-figure img {
+  max-width: 95vw;
+  max-height: 85vh;
+  width: auto;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .5);
+}
+
+.lightbox .lb-figure figcaption {
+  margin-top: .5rem;
+  font-size: .95rem;
+  color: #ccc;
+}
+
 .lightbox .lb-btn {
   position: absolute;
-  background: rgba(255,255,255,0.12);
+  background: rgba(255, 255, 255, 0.12);
   color: #fff;
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 999px;
-  width: 44px; height: 44px;
-  display: grid; place-items: center;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
   font-size: 24px;
   cursor: pointer;
   transition: background .2s ease;
 }
-.lightbox .lb-btn:hover { background: rgba(255,255,255,0.2); }
-.lightbox .lb-btn:focus { outline: 2px solid #9e9e9e; outline-offset: 2px; }
-.lightbox .lb-btn.close { top: 20px; right: 20px; font-size: 28px; }
-.lightbox .lb-btn.prev { left: 20px; }
-.lightbox .lb-btn.next { right: 20px; }
+
+.lightbox .lb-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.lightbox .lb-btn:focus {
+  outline: 2px solid #9e9e9e;
+  outline-offset: 2px;
+}
+
+.lightbox .lb-btn.close {
+  top: 20px;
+  right: 20px;
+  font-size: 28px;
+}
+
+.lightbox .lb-btn.prev {
+  left: 20px;
+}
+
+.lightbox .lb-btn.next {
+  right: 20px;
+}
+
 /* Counter inside lightbox */
 .lightbox .lb-counter {
   position: absolute;
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(0,0,0,0.45);
+  background: rgba(0, 0, 0, 0.45);
   color: #fff;
   padding: .3rem .6rem;
   border-radius: 999px;
   font-weight: 600;
-  letter-spacing: .2px;
+  letter-spacing: 0.2px;
   font-variant-numeric: tabular-nums;
 }
 
 /* Pointer hint on commons cards */
-#comunes .card.photo-only { cursor: zoom-in; }
-#comunes .card.photo-only { position: relative; }
+#comunes .card.photo-only {
+  cursor: zoom-in;
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse; /* caption above image without changing HTML */
+  margin: 0 0 .6rem; /* small separation from the photo */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .25);
+}
+
+#comunes figcaption {
+  padding-top: 0.8rem;
+}
+
 #comunes .photo-count {
   position: absolute;
   bottom: 8px;
   right: 10px;
-  background: rgba(0,0,0,0.55);
+  background: rgba(0, 0, 0, 0.55);
   color: #fff;
   padding: .2rem .5rem;
   border-radius: 8px;
@@ -735,11 +791,6 @@ body { padding-bottom: 88px; }
 }
 
 
-/* Zonas comunes: show titles above photos, centered and bold */
-#comunes figure.card.photo-only {
-  display: flex;
-  flex-direction: column-reverse; /* caption above image without changing HTML */
-}
 #comunes figure.card.photo-only figcaption {
   text-align: center;
   font-weight: 700;
@@ -753,44 +804,9 @@ body { padding-bottom: 88px; }
 }
 
 
-/* Minimalist placeholder image for Despachos under construction */
-/* Applies only to cards whose first image is the white placeholder */
-#despachos .card:has(> img[src$="blank-white.svg"]) {
-  position: relative; /* ensure ::before positioning */
-}
-#despachos .card:has(> img[src$="blank-white.svg"])::before {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 180px; /* same as .card img */
-  /* Subtle ocre-tinted background with a soft vignette */
-  background-color: color-mix(in oklab, var(--bg-soft) 35%, #ffffff 65%);
-  background-image:
-    radial-gradient(ellipse at 50% 40%, rgba(0,0,0,.06), rgba(0,0,0,0) 60%),
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' aria-hidden='true'><path fill='%236b7280' d='M32 6L2 58h60L32 6z'/><rect x='30' y='26' width='4' height='18' fill='%23ffffff'/><circle cx='32' cy='50' r='3' fill='%23ffffff'/></svg>");
-  background-repeat: no-repeat, no-repeat;
-  background-position: center, center;
-  background-size: 120% 100%, 96px 96px; /* vignette, icon */
-  border-bottom: 1px solid var(--card-border);
-  z-index: 0;
-}
-/* Hide the white placeholder image only when the selector matches */
-#despachos .card:has(> img[src$="blank-white.svg"]) > img[src$="blank-white.svg"] {
-  display: none;
-}
-/* Ensure the top-left construction mark stays above the placeholder */
-#despachos img.marca-ocupado { z-index: 1; }
-
-
 /* Pointer hint on Mesas cards */
-#mesas .card { cursor: zoom-in; }
-
-
-/* Esferas de "No disponible" en naranja (solo cuando aria-label indica ese estado) */
-.badge.ocupado[aria-label="estado: no disponible"] {
-  background: color-mix(in oklab, var(--accent) 42%, #ffffff 58%);
-  color: #1f2937; /* gray-800 for strong contrast */
-  border-color: color-mix(in oklab, var(--accent-2) 75%, transparent);
+#mesas .card {
+  cursor: zoom-in;
 }
 
 
@@ -807,10 +823,18 @@ body { padding-bottom: 88px; }
   color: #ffffff;
 }
 
-.btn .icon { display: inline-block; }
+.btn .icon {
+  display: inline-block;
+}
 
 /* Arrange contact buttons nicely */
-.form-actions { display: flex; gap: .5rem; flex-wrap: wrap; }
+.form-actions {
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  justify-content: center;
+}
 
 /* Responsive map embed */
 .map-embed {
@@ -821,12 +845,15 @@ body { padding-bottom: 88px; }
   border-radius: 12px;
   overflow: hidden;
 }
-.map-embed iframe { width: 100%; height: 100%; border: 0; }
 
+.map-embed iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
 
-/* Quitar marco de tarjetas en sección Despachos (home) */
-#despachos .card {
-  background: transparent;
-  border: none;
-  box-shadow: none;
+.sin-iva {
+  font-weight: normal;
+  font-size: .8rem;
+  font-style: italic;
 }

@@ -22,165 +22,184 @@
   <style>
     /* Despacho: mostrar las fotos completas (sin recortar) en las miniaturas de la galería */
     .grid.grid-3 .card.photo-only img {
-      object-fit: contain;
+      object-fit: cover;
       background: var(--card);
     }
+
     /* Quitar marco (fondo, borde y sombra) de las miniaturas del despacho */
     .grid.grid-3 .card.photo-only {
       background: transparent;
       border: none;
-      box-shadow: none;
+      margin: 0 0 .6rem; /* small separation from the photo */
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .25);
     }
+
     /* Ocultar descripciones bajo las miniaturas del despacho (solo thumbnails) */
     .grid.grid-3 .card.photo-only figcaption {
       display: none;
     }
+
+    .pag-despacho.card {
+      margin-top: 1rem;
+      box-shadow: 0 8px 24px inset rgba(0, 0, 0, .25);
+    }
   </style>
 </head>
 <body>
-  <header class="site-header" id="top">
-    <div class="nav-wrap">
-      <nav class="nav">
-        <a href="index.html#top" class="nav-link">Inicio</a>
-        <a href="/index.html#despachos" class="nav-link">Despachos</a>
-        <a href="/index.html#mesas" class="nav-link">Mesas</a>
-        <a href="/index.html#comunes" class="nav-link">Zonas comunes</a>
-        <a href="/index.html#servicios" class="nav-link">Servicios y equipación</a>
-        <a href="/index.html#info" class="nav-link">Contacta con nosotros</a>
-        <a href="/index.html#condiciones" class="nav-link">Condiciones</a>
-      </nav>
-    </div>
-    <h1 class="logo"><span class="logo-hi">Hi</span>Hive</h1>
-    <p class="subtitle">Coworking en Barcelona centro</p>
-  </header>
-
-  <main>
-    <section class="section">
-      <a href="index.html#despachos" class="nav-link" style="padding:.25rem .6rem">← Volver a Despachos</a>
-      <h2 style="margin-top:1rem">Despacho 3</h2>
-      <p class="meta">Capacidad: 8 personas · 1350€ / mes</p>
-
-      <div class="grid grid-3" style="margin-top:1rem">
-        <figure class="card photo-only">
-          <img src="img/fotos/Despacho 3/Despacho 3 ventana.jpg" alt="Ventana del Despacho 3" loading="lazy">
-          <figcaption>Ventana del despacho</figcaption>
-        </figure>
-        <figure class="card photo-only">
-          <img src="img/fotos/Despacho 3/Despacho 3 mesas pared.jpg" alt="Mesas junto a la pared en el Despacho 3" loading="lazy">
-          <figcaption>Mesas junto a la pared</figcaption>
-        </figure>
-        <figure class="card photo-only">
-          <img src="img/fotos/Despacho 3/Despacho 3 mesas ventana.jpg" alt="Mesas junto a la ventana en el Despacho 3" loading="lazy">
-          <figcaption>Mesas junto a la ventana</figcaption>
-        </figure>
-      </div>
-
-      <div class="card" style="margin-top:1rem;border:none;box-shadow:none;background:transparent">
-        <div class="card-body">
-          <p>Incluye acceso a todos los <a href="index.html#servicios" class="nav-link" style="padding:0;border:none">servicios y equipación</a> del coworking: internet por cable y wifi, climatización, zonas de descanso, cocina-office, comedor, aseos, alarma y acceso mediante Akiles.</p>
-          <p>Todos nuestros despachos vienen equipados tal cual están en las fotos.</p>
-          <p>¿Te interesa el Despacho 3? <a href="index.html#info" class="nav-link" style="padding:0;border:none;color:#0a66ff;background:transparent;border-color:transparent">Contacta con nosotros</a>.</p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <p>© <span id="year"></span> <span class="logo-hi">Hi</span>Hive · Pelai 9, Entresuelo · Barcelona</p>
-  </footer>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
-
-  <!-- Lightbox para Despacho 3 -->
-  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-caption" aria-hidden="true">
-    <button class="lb-btn close" type="button" aria-label="Cerrar" title="Cerrar">×</button>
-    <button class="lb-btn prev" type="button" aria-label="Anterior" title="Anterior">❮</button>
-    <button class="lb-btn next" type="button" aria-label="Siguiente" title="Siguiente">❯</button>
-    <div class="lb-counter" aria-live="polite"></div>
-    <figure class="lb-figure">
-      <img id="lightbox-img" alt="" src="" decoding="async">
-      <figcaption id="lightbox-caption"></figcaption>
-    </figure>
+<header class="site-header" id="top">
+  <div class="nav-wrap">
+    <nav class="nav">
+      <a href="index.html#top" class="nav-link">Inicio</a>
+      <a href="/index.html#despachos" class="nav-link">Despachos</a>
+      <a href="/index.html#mesas" class="nav-link">Mesas</a>
+      <a href="/index.html#comunes" class="nav-link">Zonas comunes</a>
+      <a href="/index.html#servicios" class="nav-link">Servicios y equipación</a>
+      <a href="/index.html#info" class="nav-link">Contacta con nosotros</a>
+      <a href="/index.html#condiciones" class="nav-link">Condiciones</a>
+    </nav>
   </div>
+  <div class="brand-row">
+    <h1 class="logo"><span class="logo-hi">Hi</span>Hive</h1>
+  </div>
+  <p class="subtitle">Tu espacio de coworking en el corazón de Barcelona</p>
+</header>
 
-  <script>
-    // Lightbox para las fotos del Despacho 3 en esta página
-    (function() {
-      const galleryEls = Array.from(document.querySelectorAll('.grid.grid-3 figure.card.photo-only img'));
-      if (!galleryEls.length) return;
+<main>
+  <section class="section">
+    <a href="index.html#despachos" class="nav-link" style="padding:.25rem .6rem">← Volver a Despachos</a>
+    <h2 style="margin-top:1rem">Despacho 3</h2>
+    <p class="meta">Capacidad: 8 personas · 1350€ / mes (sin IVA)</p>
 
-      // Construir galería desde las imágenes presentes
-      const gallery = galleryEls.map(img => ({
-        src: img.currentSrc || img.src,
-        caption: (img.closest('figure')?.querySelector('figcaption')?.textContent || '').trim()
-      }));
+    <div class="grid grid-3" style="margin-top:1rem">
+      <figure class="card photo-only">
+        <img src="img/fotos/Despacho 3/Despacho 3 ventana.jpg" alt="Ventana del Despacho 3" loading="lazy">
+        <figcaption>Ventana del despacho</figcaption>
+      </figure>
+      <figure class="card photo-only">
+        <img src="img/fotos/Despacho 3/Despacho 3 mesas pared.jpg" alt="Mesas junto a la pared en el Despacho 3"
+             loading="lazy">
+        <figcaption>Mesas junto a la pared</figcaption>
+      </figure>
+      <figure class="card photo-only">
+        <img src="img/fotos/Despacho 3/Despacho 3 mesas ventana.jpg" alt="Mesas junto a la ventana en el Despacho 3"
+             loading="lazy">
+        <figcaption>Mesas junto a la ventana</figcaption>
+      </figure>
+    </div>
 
-      const lb = document.getElementById('lightbox');
-      const lbImg = document.getElementById('lightbox-img');
-      const lbCaption = document.getElementById('lightbox-caption');
-      const lbCounter = lb.querySelector('.lb-counter');
-      const btnClose = lb.querySelector('.lb-btn.close');
-      const btnPrev = lb.querySelector('.lb-btn.prev');
-      const btnNext = lb.querySelector('.lb-btn.next');
+    <div class="card pag-despacho">
+      <div class="card-body">
+        <p>Incluye acceso a todos los <a href="index.html#servicios" class="nav-link" style="padding:0;border:none">servicios
+          y equipación</a> del coworking: internet por cable y wifi, climatización, zonas de descanso, cocina-office,
+          comedor, aseos, alarma y acceso mediante Akiles.</p>
+        <p>Todos nuestros despachos vienen equipados tal cual están en las fotos.</p>
+        <p>¿Te interesa el Despacho 3? <a href="index.html#info" class="nav-link"
+                                          style="padding:0;border:none;color:#0a66ff;background:transparent;border-color:transparent">Contacta
+          con nosotros</a>.</p>
+      </div>
+    </div>
+  </section>
+</main>
 
-      let currentIndex = 0;
-      let lastActive = null;
+<footer class="site-footer">
+  <p>© <span id="year"></span> <span class="logo-hi">Hi</span>Hive · Pelai 9, Entresuelo · Barcelona</p>
+</footer>
 
-      function show(index) {
-        const len = gallery.length;
-        currentIndex = ((index % len) + len) % len;
-        const item = gallery[currentIndex];
-        lbImg.src = item.src;
-        lbImg.alt = item.caption || '';
-        lbCaption.textContent = item.caption || '';
-        if (lbCounter) lbCounter.textContent = (currentIndex + 1) + ' / ' + len;
-      }
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
 
-      function open(startIdx) {
-        lastActive = document.activeElement;
-        document.body.style.overflow = 'hidden';
-        lb.classList.add('open');
-        lb.removeAttribute('aria-hidden');
-        show(startIdx || 0);
-        btnClose.focus();
-      }
+<!-- Lightbox para Despacho 3 -->
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-caption"
+     aria-hidden="true">
+  <button class="lb-btn close" type="button" aria-label="Cerrar" title="Cerrar">×</button>
+  <button class="lb-btn prev" type="button" aria-label="Anterior" title="Anterior">❮</button>
+  <button class="lb-btn next" type="button" aria-label="Siguiente" title="Siguiente">❯</button>
+  <div class="lb-counter" aria-live="polite"></div>
+  <figure class="lb-figure">
+    <img id="lightbox-img" alt="" src="" decoding="async">
+    <figcaption id="lightbox-caption"></figcaption>
+  </figure>
+</div>
 
-      function close() {
-        lb.classList.remove('open');
-        lb.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-        if (lastActive && lastActive.focus) lastActive.focus();
-      }
+<script>
+  // Lightbox para las fotos del Despacho 3 en esta página
+  (function () {
+    const galleryEls = Array.from(document.querySelectorAll('.grid.grid-3 figure.card.photo-only img'));
+    if (!galleryEls.length) return;
 
-      // Bind clicks en miniaturas
-      galleryEls.forEach((imgEl, idx) => {
-        const fig = imgEl.closest('figure');
-        if (!fig) return;
-        fig.style.cursor = 'zoom-in';
-        fig.addEventListener('click', (e) => {
-          e.preventDefault();
-          open(idx);
-        });
+    // Construir galería desde las imágenes presentes
+    const gallery = galleryEls.map(img => ({
+      src: img.currentSrc || img.src,
+      caption: (img.closest('figure')?.querySelector('figcaption')?.textContent || '').trim()
+    }));
+
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightbox-img');
+    const lbCaption = document.getElementById('lightbox-caption');
+    const lbCounter = lb.querySelector('.lb-counter');
+    const btnClose = lb.querySelector('.lb-btn.close');
+    const btnPrev = lb.querySelector('.lb-btn.prev');
+    const btnNext = lb.querySelector('.lb-btn.next');
+
+    let currentIndex = 0;
+    let lastActive = null;
+
+    function show(index) {
+      const len = gallery.length;
+      currentIndex = ((index % len) + len) % len;
+      const item = gallery[currentIndex];
+      lbImg.src = item.src;
+      lbImg.alt = item.caption || '';
+      lbCaption.textContent = item.caption || '';
+      if (lbCounter) lbCounter.textContent = (currentIndex + 1) + ' / ' + len;
+    }
+
+    function open(startIdx) {
+      lastActive = document.activeElement;
+      document.body.style.overflow = 'hidden';
+      lb.classList.add('open');
+      lb.removeAttribute('aria-hidden');
+      show(startIdx || 0);
+      btnClose.focus();
+    }
+
+    function close() {
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (lastActive && lastActive.focus) lastActive.focus();
+    }
+
+    // Bind clicks en miniaturas
+    galleryEls.forEach((imgEl, idx) => {
+      const fig = imgEl.closest('figure');
+      if (!fig) return;
+      fig.style.cursor = 'zoom-in';
+      fig.addEventListener('click', (e) => {
+        e.preventDefault();
+        open(idx);
       });
+    });
 
-      // Controles
-      btnClose.addEventListener('click', close);
-      btnPrev.addEventListener('click', () => show(currentIndex - 1));
-      btnNext.addEventListener('click', () => show(currentIndex + 1));
+    // Controles
+    btnClose.addEventListener('click', close);
+    btnPrev.addEventListener('click', () => show(currentIndex - 1));
+    btnNext.addEventListener('click', () => show(currentIndex + 1));
 
-      // Cerrar clic fondo
-      lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+    // Cerrar clic fondo
+    lb.addEventListener('click', (e) => {
+      if (e.target === lb) close();
+    });
 
-      // Teclado
-      document.addEventListener('keydown', (e) => {
-        if (!lb.classList.contains('open')) return;
-        if (e.key === 'Escape') close();
-        else if (e.key === 'ArrowLeft') show(currentIndex - 1);
-        else if (e.key === 'ArrowRight') show(currentIndex + 1);
-      });
-    })();
-  </script>
+    // Teclado
+    document.addEventListener('keydown', (e) => {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowLeft') show(currentIndex - 1);
+      else if (e.key === 'ArrowRight') show(currentIndex + 1);
+    });
+  })();
+</script>
 </body>
 </html>
