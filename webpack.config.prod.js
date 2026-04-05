@@ -20,6 +20,7 @@ module.exports = merge(common, {
         { from: 'icon.png', to: 'icon.png' },
         { from: '404.html', to: '404.html' },
         { from: 'site.webmanifest', to: 'site.webmanifest' },
+        { from: 'despacho-2.html', to: 'despacho-2.html' },
         { from: 'despacho-3.html', to: 'despacho-3.html' },
       ],
     }),
