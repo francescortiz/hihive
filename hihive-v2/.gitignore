@@ -8,7 +8,7 @@ node_modules
 /.svelte-kit
 /build
 /preview
-/db
+/db/hihive.db
 /dist
 
 # OS
