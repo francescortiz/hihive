@@ -1,0 +1,6 @@
+[tools]
+bun = "1.2"
+
+[env]
+# Asegura que el binario del proyecto esté en PATH durante scripts de mise.
+PATH = "{{ env.HOME }}/.local/share/mise/shims:{{ env.PATH }}"
