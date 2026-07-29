@@ -1,24 +1,28 @@
 /**
- * db.ts — Capa de acceso a SQLite para HiHive v2.
+ * db.ts — Capa de acceso a PostgreSQL para HiHive v2.
  *
- * Usa bun:sqlite (built-in, sin deps nativas). Solo se importa desde
- * ficheros *.server.ts, así que SvelteKit/Vite lo excluye del bundle
- * cliente y solo corre en build time (prerender).
+ * Usa el driver `pg` (node-postgres, puro JS, sin deps nativas). Solo se
+ * importa desde ficheros *.server.ts, así que SvelteKit/Vite lo excluye
+ * del bundle cliente y solo corre en build time (prerender).
+ *
+ * La cadena de conexión se lee de process.env.DATABASE_URL (cargada
+ * automáticamente por Bun desde .env).
  */
-import { Database } from 'bun:sqlite';
-import { resolve } from 'node:path';
+import pg from 'pg';
 
-// Durante el build, SvelteKit compila los .server.ts a .svelte-kit/output/server/...,
-// así que __dirname no apunta a src/lib/server. Resolvemos desde el cwd del proyecto.
-const DB_PATH = resolve(process.cwd(), 'db', 'hihive.db');
+const { Pool } = pg;
 
-let _db: Database | null = null;
+const DATABASE_URL = process.env.DATABASE_URL;
+if (!DATABASE_URL) {
+  throw new Error('Falta DATABASE_URL en .env (ver .env.example)');
+}
 
-function db(): Database {
-  if (_db) return _db;
-  _db = new Database(DB_PATH, { readonly: true });
-  _db.exec('PRAGMA foreign_keys = ON;');
-  return _db;
+let _pool: pg.Pool | null = null;
+
+function pool(): pg.Pool {
+  if (_pool) return _pool;
+  _pool = new Pool({ connectionString: DATABASE_URL });
+  return _pool;
 }
 
 // ── Tipos ────────────────────────────────────────────────────────
@@ -107,65 +111,82 @@ export interface FaqItem {
 }
 
 // ── Queries ──────────────────────────────────────────────────────
-export function getSite(): Site {
-  return db().query('SELECT * FROM site WHERE id = 1').get() as Site;
+export async function getSite(): Promise<Site> {
+  const { rows } = await pool().query('SELECT * FROM site WHERE id = 1');
+  return rows[0] as Site;
 }
 
-export function getSpaces(): Space[] {
-  const rows = db()
-    .query('SELECT * FROM spaces ORDER BY sort_order')
-    .all() as (Omit<Space, 'benefits'> & { benefits: string })[];
+export async function getSpaces(): Promise<Space[]> {
+  const { rows } = await pool().query('SELECT * FROM spaces ORDER BY sort_order');
   return rows.map((r) => {
     const { benefits, ...rest } = r;
-    return { ...rest, benefits: JSON.parse(benefits ?? '[]') };
+    return { ...rest, benefits: JSON.parse(benefits ?? '[]') } as Space;
   });
 }
 
-// Nota: la columna benefits se almacena como JSON en un TEXT llamado
-// "benefits" en el schema. SQLite devuelve el campo tal cual; lo
-// parseamos aquí. (Ver corrección abajo.)
-export function getDesks(): Desk[] {
-  return db().query('SELECT * FROM desks ORDER BY id').all() as Desk[];
+export async function getDesks(): Promise<Desk[]> {
+  const { rows } = await pool().query('SELECT * FROM desks ORDER BY id');
+  return rows as Desk[];
 }
 
-export function getOffices(): Office[] {
-  return db().query('SELECT * FROM offices ORDER BY id').all() as Office[];
+export async function getOffices(): Promise<Office[]> {
+  const { rows } = await pool().query('SELECT * FROM offices ORDER BY id');
+  return rows as Office[];
 }
 
-export function getOfficePhotos(officeId: number): OfficePhoto[] {
-  return db()
-    .query('SELECT * FROM office_photos WHERE office_id = ? ORDER BY sort_order')
-    .all(officeId) as OfficePhoto[];
+export async function getOfficePhotos(officeId: number): Promise<OfficePhoto[]> {
+  const { rows } = await pool().query(
+    'SELECT office_id, title, src, sort_order FROM office_photos WHERE office_id = $1 ORDER BY sort_order',
+    [officeId]
+  );
+  return rows as OfficePhoto[];
 }
 
-export function getAllOfficePhotos(): Record<number, OfficePhoto[]> {
-  const offices = getOffices();
+export async function getAllOfficePhotos(): Promise<Record<number, OfficePhoto[]>> {
+  const { rows } = await pool().query(
+    'SELECT office_id, title, src, sort_order FROM office_photos ORDER BY office_id, sort_order'
+  );
   const map: Record<number, OfficePhoto[]> = {};
-  for (const o of offices) {
-    map[o.id] = getOfficePhotos(o.id);
+  for (const row of rows as OfficePhoto[]) {
+    (map[row.office_id] ??= []).push(row);
   }
   return map;
 }
 
-export function getGalleryCategories(): GalleryCategory[] {
-  return db()
-    .query('SELECT * FROM gallery_categories ORDER BY sort_order')
-    .all() as GalleryCategory[];
+export async function getGalleryCategories(): Promise<GalleryCategory[]> {
+  const { rows } = await pool().query(
+    'SELECT * FROM gallery_categories ORDER BY sort_order'
+  );
+  return rows as GalleryCategory[];
 }
 
-export function getGalleryPhotos(categoryKey: string): GalleryPhoto[] {
-  return db()
-    .query('SELECT * FROM gallery_photos WHERE category_key = ? ORDER BY sort_order')
-    .all(categoryKey) as GalleryPhoto[];
+export async function getGalleryPhotos(categoryKey: string): Promise<GalleryPhoto[]> {
+  const { rows } = await pool().query(
+    'SELECT category_key, title, src, sort_order FROM gallery_photos WHERE category_key = $1 ORDER BY sort_order',
+    [categoryKey]
+  );
+  return rows as GalleryPhoto[];
 }
 
-export function getGallery(): { category: GalleryCategory; photos: GalleryPhoto[] }[] {
-  const cats = getGalleryCategories();
-  return cats.map((category) => ({ category, photos: getGalleryPhotos(category.key) }));
+export async function getGallery(): Promise<{ category: GalleryCategory; photos: GalleryPhoto[] }[]> {
+  const [cats, photos] = await Promise.all([
+    getGalleryCategories(),
+    (async () => {
+      const { rows } = await pool().query(
+        'SELECT category_key, title, src, sort_order FROM gallery_photos ORDER BY sort_order'
+      );
+      return rows as GalleryPhoto[];
+    })()
+  ]);
+  return cats.map((category) => ({
+    category,
+    photos: photos.filter((p) => p.category_key === category.key)
+  }));
 }
 
-export function getFaq(): FaqItem[] {
-  return db().query('SELECT * FROM faq ORDER BY sort_order').all() as FaqItem[];
+export async function getFaq(): Promise<FaqItem[]> {
+  const { rows } = await pool().query('SELECT * FROM faq ORDER BY sort_order');
+  return rows as FaqItem[];
 }
 
 // ── Datos agregados para la home ──────────────────────────────────
@@ -179,14 +200,15 @@ export interface HomeData {
   faq: FaqItem[];
 }
 
-export function getHomeData(): HomeData {
-  return {
-    site: getSite(),
-    spaces: getSpaces(),
-    desks: getDesks(),
-    offices: getOffices(),
-    officePhotos: getAllOfficePhotos(),
-    gallery: getGallery(),
-    faq: getFaq()
-  };
+export async function getHomeData(): Promise<HomeData> {
+  const [site, spaces, desks, offices, officePhotos, gallery, faq] = await Promise.all([
+    getSite(),
+    getSpaces(),
+    getDesks(),
+    getOffices(),
+    getAllOfficePhotos(),
+    getGallery(),
+    getFaq()
+  ]);
+  return { site, spaces, desks, offices, officePhotos, gallery, faq };
 }

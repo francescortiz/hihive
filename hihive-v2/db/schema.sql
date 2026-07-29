@@ -1,8 +1,6 @@
--- schema.sql — Esquema de la base de datos HiHive v2.
--- Edítalo con DataGrip/DBeaver (conectando por SSH al archivo .db).
--- Tras editar, ejecuta `bun run build` para regenerar dist/.
-
-PRAGMA foreign_keys = ON;
+-- schema.sql — Esquema de la base de datos HiHive v2 (PostgreSQL).
+-- Edítalo con DataGrip/DBeaver (conectando al contenedor Docker).
+-- Tras editar, ejecuta `bun run db:init` y `bun run build`.
 
 -- ── Config global del sitio ─────────────────────────────────────
 -- Una sola fila (id=1). Personaliza paleta, hero, contacto, etc.
@@ -48,7 +46,7 @@ CREATE TABLE IF NOT EXISTS spaces (
   id          TEXT PRIMARY KEY,            -- 'hotdesk' | 'oficina'
   name        TEXT NOT NULL,
   pre         TEXT,                        -- 'desde' (opcional)
-  desc        TEXT NOT NULL,
+  "desc"      TEXT NOT NULL,                -- 'desc' es keyword en SQL → quoted
   price       TEXT NOT NULL,               -- '160' | '700'
   unit        TEXT NOT NULL,               -- '€ + IVA'
   photo       TEXT NOT NULL,               -- ruta en static/
@@ -76,7 +74,7 @@ CREATE TABLE IF NOT EXISTS offices (
 
 -- ── Fotos por oficina ───────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS office_photos (
-  id          INTEGER PRIMARY KEY AUTOINCREMENT,
+  id          SERIAL PRIMARY KEY,
   office_id   INTEGER NOT NULL REFERENCES offices(id) ON DELETE CASCADE,
   title       TEXT NOT NULL,
   src         TEXT NOT NULL,               -- ruta en static/
@@ -91,7 +89,7 @@ CREATE TABLE IF NOT EXISTS gallery_categories (
 );
 
 CREATE TABLE IF NOT EXISTS gallery_photos (
-  id          INTEGER PRIMARY KEY AUTOINCREMENT,
+  id          SERIAL PRIMARY KEY,
   category_key TEXT NOT NULL REFERENCES gallery_categories(key) ON DELETE CASCADE,
   title       TEXT NOT NULL,
   src         TEXT NOT NULL,
@@ -100,7 +98,7 @@ CREATE TABLE IF NOT EXISTS gallery_photos (
 
 -- ── FAQ / Condiciones generales (acordeón) ──────────────────────
 CREATE TABLE IF NOT EXISTS faq (
-  id        INTEGER PRIMARY KEY AUTOINCREMENT,
+  id        SERIAL PRIMARY KEY,
   question  TEXT NOT NULL,
   answer    TEXT NOT NULL,
   sort_order INTEGER NOT NULL DEFAULT 0

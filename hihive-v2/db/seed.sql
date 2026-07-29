@@ -1,12 +1,13 @@
--- seed.sql — Datos iniciales de HiHive v2.
+-- seed.sql — Datos iniciales de HiHive v2 (PostgreSQL).
 -- Ejecutar una sola vez para crear la DB: `bun run db:init`
--- Después edita el .db con DataGrip/DBeaver.
+-- Después edita la DB con DataGrip/DBeaver.
 
 -- ── Site (fila única) ────────────────────────────────────────────
-INSERT INTO site (id) VALUES (1);
+INSERT INTO site (id) VALUES (1)
+ON CONFLICT (id) DO NOTHING;
 
 -- ── Espacios ────────────────────────────────────────────────────
-INSERT INTO spaces (id, name, pre, desc, price, unit, photo, label, featured, cta_label, sort_order, benefits) VALUES
+INSERT INTO spaces (id, name, pre, "desc", price, unit, photo, label, featured, cta_label, sort_order, benefits) VALUES
 ('hotdesk', 'Mesas', NULL,
  'Tu escritorio del día, en una sala compartida con acceso 24/7.',
  '160', '€ + IVA', '/img/spaces/mesas.png', 'Sala Norte · luz natural', 0,
@@ -16,7 +17,8 @@ INSERT INTO spaces (id, name, pre, desc, price, unit, photo, label, featured, ct
  'Para equipos de 4 a 10 personas. Llave propia, mobiliario y acceso 24/7.',
  '700', '€ + IVA', '/img/spaces/oficinas.png', 'Estudio Mediterráneo · privada', 1,
  'Nuestras oficinas', 2,
- '["WiFi fibra simétrico 1 Gbps","Acceso 24/7","Acceso a sala de reuniones","Oficina privada con llave"]');
+ '["WiFi fibra simétrico 1 Gbps","Acceso 24/7","Acceso a sala de reuniones","Oficina privada con llave"]')
+ON CONFLICT (id) DO NOTHING;
 
 -- ── Mesas ────────────────────────────────────────────────────────
 INSERT INTO desks (id, taken, free_date) VALUES
@@ -24,7 +26,8 @@ INSERT INTO desks (id, taken, free_date) VALUES
 (2, 1, '2026-08-01'),
 (3, 0, NULL),
 (4, 0, NULL),
-(5, 1, '2026-07-22');
+(5, 1, '2026-07-22')
+ON CONFLICT (id) DO NOTHING;
 
 -- ── Oficinas ─────────────────────────────────────────────────────
 INSERT INTO offices (id, taken, price, free_date) VALUES
@@ -32,7 +35,8 @@ INSERT INTO offices (id, taken, price, free_date) VALUES
 (2, 1, '700 € + IVA', '2026-09-01'),
 (3, 0, '1350 € + IVA', NULL),
 (4, 0, '750 € + IVA', NULL),
-(5, 0, '1650 € + IVA', NULL);
+(5, 0, '1650 € + IVA', NULL)
+ON CONFLICT (id) DO NOTHING;
 
 -- ── Fotos por oficina ───────────────────────────────────────────
 -- Nota: las rutas apuntan a static/img/offices/. Sube ahí las fotos reales.
@@ -51,13 +55,15 @@ INSERT INTO office_photos (office_id, title, src, sort_order) VALUES
 (4, 'Oficina 4 · ventana', '/img/offices/of4-3.png', 3),
 (5, 'Oficina 5 · entrada', '/img/offices/of5-1.png', 1),
 (5, 'Oficina 5 · puestos', '/img/offices/of5-2.png', 2),
-(5, 'Oficina 5 · ventana', '/img/offices/of5-3.png', 3);
+(5, 'Oficina 5 · ventana', '/img/offices/of5-3.png', 3)
+ON CONFLICT DO NOTHING;
 
 -- ── Galería ──────────────────────────────────────────────────────
 INSERT INTO gallery_categories (key, label, sort_order) VALUES
 ('despachos', 'Oficinas', 1),
 ('mesas', 'Mesas', 2),
-('comunes', 'Zonas comunes', 3);
+('comunes', 'Zonas comunes', 3)
+ON CONFLICT (key) DO NOTHING;
 
 INSERT INTO gallery_photos (category_key, title, src, sort_order) VALUES
 ('despachos', 'Despacho privado', '/img/gallery/despacho-1.png', 1),
@@ -68,7 +74,8 @@ INSERT INTO gallery_photos (category_key, title, src, sort_order) VALUES
 ('mesas', 'Mesas junto a la ventana', '/img/gallery/mesas-3.png', 3),
 ('comunes', 'Cocina y office', '/img/gallery/comunes-1.png', 1),
 ('comunes', 'Sala de descanso', '/img/gallery/comunes-2.png', 2),
-('comunes', 'Recepción', '/img/gallery/comunes-3.png', 3);
+('comunes', 'Recepción', '/img/gallery/comunes-3.png', 3)
+ON CONFLICT DO NOTHING;
 
 -- ── FAQ / Condiciones generales ──────────────────────────────────
 INSERT INTO faq (question, answer, sort_order) VALUES
@@ -77,4 +84,5 @@ INSERT INTO faq (question, answer, sort_order) VALUES
 ('¿Hay permanencia mínima?', 'No. Trabajamos sin contratos de permanencia. Solo avisamos con 30 días de antelación para no renovar el mes siguiente.', 3),
 ('¿Puedo alquilar una oficina para un equipo?', 'Sí. Nuestras oficinas privadas son para equipos de 4 a 10 personas, con llave propia, mobiliario y acceso 24/7.', 4),
 ('¿Cómo funciona la sala de reuniones?', 'Se reserva por franjas horarias y está incluida en la cuota. Los miembros pueden reservarla desde la web o por WhatsApp.', 5),
-('¿Hay parking?', 'No tenemos parking propio, pero el coworking está a 2 minutos de Plaça Catalunya, con excelente conexión de transporte público y aparcamientos públicos cercanos.', 6);
+('¿Hay parking?', 'No tenemos parking propio, pero el coworking está a 2 minutos de Plaça Catalunya, con excelente conexión de transporte público y aparcamientos públicos cercanos.', 6)
+ON CONFLICT DO NOTHING;

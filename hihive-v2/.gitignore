@@ -8,7 +8,8 @@ node_modules
 /.svelte-kit
 /build
 /preview
-/db/hihive.db*
+# DB local (Postgres corre en Docker, sin ficheros locales)
+/.pgdata
 /dist
 
 # OS

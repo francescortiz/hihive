@@ -5,5 +5,5 @@ export const ssr = true;
 export const csr = true;
 
 export async function load() {
-	return { site: getSite() };
+	return { site: await getSite() };
 }
