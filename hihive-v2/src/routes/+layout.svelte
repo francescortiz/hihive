@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '../app.css';
+	import { asset } from '$app/paths';
 	import type { LayoutData } from './$types';
 
 	let { children, data } = $props();
@@ -22,11 +23,11 @@
 </script>
 
 <svelte:head>
-	<link rel="icon" href="/favicon.svg" />
+	<link rel="icon" href={asset('/favicon.svg')} />
 
-	<link rel="icon" href="/HiHive Coworking.png" sizes="any">
-	<link rel="icon" href="/HiHive Coworking.png" type="image/svg+xml">
-	<link rel="apple-touch-icon" href="/HiHive Coworking.png">
+	<link rel="icon" href={asset('/HiHive Coworking.png')} sizes="any">
+	<link rel="icon" href={asset('/HiHive Coworking.png')} type="image/svg+xml">
+	<link rel="apple-touch-icon" href={asset('/HiHive Coworking.png')}>
 </svelte:head>
 
 {@render children()}

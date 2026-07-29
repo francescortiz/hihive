@@ -6,7 +6,7 @@
 	"scripts": {
 		"dev": "bun --bun vite dev",
 		"build": "bun --bun vite build",
-		"build:preview": "BUILD_DIR=preview bun --bun vite build",
+		"build:preview": "BUILD_DIR=preview BASE_PATH=/preview bun --bun vite build",
 		"preview": "bun --bun vite preview",
 		"db:init": "bun --bun run scripts/init-db.ts",
 		"prepare": "svelte-kit sync || echo ''",

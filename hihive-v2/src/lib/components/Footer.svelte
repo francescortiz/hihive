@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import type { Site } from '$lib/server/db';
 
   let { site }: { site: Site } = $props();
@@ -23,9 +24,9 @@
     </div>
     <div class="foot-col">
       <h4>Legal</h4>
-      <a href="/aviso-legal">Aviso legal</a>
-      <a href="/privacidad">Privacidad</a>
-      <a href="/cookies">Cookies</a>
+      <a href={resolve('/aviso-legal')}>Aviso legal</a>
+      <a href={resolve('/privacidad')}>Privacidad</a>
+      <a href={resolve('/cookies')}>Cookies</a>
     </div>
   </div>
   <div class="container foot-bot">

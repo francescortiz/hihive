@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { asset } from '$lib/utils';
   import Reveal from '$lib/components/Reveal.svelte';
   import Lightbox from '$lib/components/Lightbox.svelte';
   import ArrowIcon from '$lib/components/ArrowIcon.svelte';
@@ -41,7 +42,7 @@
   <div class="commons-collage">
     {#each commonsPhotos as p, i}
       <div class="cc cc{i + 1}" role="button" tabindex="0" onclick={() => open(i)} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') open(i); }}>
-        <img src={p.src} alt={p.title} />
+        <img src={asset(p.src)} alt={p.title} />
       </div>
     {/each}
   </div>

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { asset } from '$lib/utils';
   import Lightbox from '$lib/components/Lightbox.svelte';
 
   interface OfficePhoto {
@@ -66,7 +67,7 @@
       {#each photos as p, i}
         <div class="gal-cell">
           <div class="gal-imgwrap" role="button" tabindex="0" onclick={() => open(i)} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') open(i); }}>
-            <img src={p.src} alt={p.title} />
+            <img src={asset(p.src)} alt={p.title} />
           </div>
           <div class="gal-title-static">{p.title}</div>
         </div>

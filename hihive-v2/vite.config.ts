@@ -6,6 +6,12 @@ import { defineConfig } from 'vite';
 // Override con: BUILD_DIR=preview bun run build
 const OUT = process.env.BUILD_DIR ?? 'dist';
 
+// Base path para assets y rutas. Por defecto '' (raíz).
+// Si el site se sirve desde un subpath (ej: /preview), usar:
+//   BASE_PATH=/preview bun run build
+// Sin trailing slash.
+const BASE = (process.env.BASE_PATH ?? '') as '' | `/${string}`;
+
 export default defineConfig({
 	plugins: [
 		sveltekit({
@@ -13,6 +19,9 @@ export default defineConfig({
 				// Force runes mode for the project, except for libraries. Can be removed in svelte 6.
 				runes: ({ filename }) =>
 					filename.split(/[/\\]/).includes('node_modules') ? undefined : true
+			},
+			paths: {
+				base: BASE
 			},
 			adapter: adapter({
 				// Output estático que mapea el reverse proxy.

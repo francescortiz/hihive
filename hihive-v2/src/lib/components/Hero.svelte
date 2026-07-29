@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { asset } from '$lib/utils';
   import type { Site } from '$lib/server/db';
   import Reveal from './Reveal.svelte';
   import ArrowIcon from './ArrowIcon.svelte';
@@ -46,7 +47,7 @@
       </div>
       <Reveal delay={2}>
         <div class="hero-visual">
-          <img class="hero-photo" src={site.hero_photo} alt="Vista del coworking HiHive" />
+          <img class="hero-photo" src={asset(site.hero_photo)} alt="Vista del coworking HiHive" />
         </div>
       </Reveal>
     </div>

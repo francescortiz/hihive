@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { asset } from '$lib/utils';
+
   let {
     photos,
     index,
@@ -41,7 +43,7 @@
     {/if}
     <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
     <figure class="light-figure" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.stopPropagation()}>
-      <img src={photos[index].src} alt={photos[index].title || `Foto ${index + 1}`} />
+      <img src={asset(photos[index].src)} alt={photos[index].title || `Foto ${index + 1}`} />
       <figcaption>{photos[index].title ? `${photos[index].title} · ` : ''}{index + 1} / {photos.length}</figcaption>
     </figure>
     {#if photos.length > 1}
