@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-eval "$(mise activate bash --shims)"
+eval "$(/home/francescortiz/.local/bin/mise activate bash --shims)"
 
 bun run build:preview
 
