@@ -21,21 +21,21 @@ INSERT INTO spaces (id, name, pre, "desc", price, unit, photo, label, featured, 
 ON CONFLICT (id) DO NOTHING;
 
 -- ── Mesas ────────────────────────────────────────────────────────
-INSERT INTO desks (id, taken, free_date) VALUES
-(1, 0, NULL),
-(2, 1, '2026-08-01'),
-(3, 0, NULL),
-(4, 0, NULL),
-(5, 1, '2026-07-22')
+INSERT INTO desks (id, taken, free_date, photo) VALUES
+(1, 0, NULL, '/img/desks/mesa-1.png'),
+(2, 1, '2026-08-01', '/img/desks/mesa-2.png'),
+(3, 0, NULL, '/img/desks/mesa-3.png'),
+(4, 0, NULL, '/img/desks/mesa-4.png'),
+(5, 1, '2026-07-22', '/img/desks/mesa-5.png')
 ON CONFLICT (id) DO NOTHING;
 
 -- ── Oficinas ─────────────────────────────────────────────────────
-INSERT INTO offices (id, taken, price, free_date) VALUES
-(1, 0, '960 € + IVA', NULL),
-(2, 1, '700 € + IVA', '2026-09-01'),
-(3, 0, '1350 € + IVA', NULL),
-(4, 0, '750 € + IVA', NULL),
-(5, 0, '1650 € + IVA', NULL)
+INSERT INTO offices (id, taken, price, free_date, photo) VALUES
+(1, 0, '960 € + IVA', NULL, '/img/offices/of1-1.png'),
+(2, 1, '700 € + IVA', '2026-09-01', '/img/offices/of2-1.png'),
+(3, 0, '1350 € + IVA', NULL, '/img/offices/of3-1.png'),
+(4, 0, '750 € + IVA', NULL, '/img/offices/of4-1.png'),
+(5, 0, '1650 € + IVA', NULL, '/img/offices/of5-1.png')
 ON CONFLICT (id) DO NOTHING;
 
 -- ── Fotos por oficina ───────────────────────────────────────────

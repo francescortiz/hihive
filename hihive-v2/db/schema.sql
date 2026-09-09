@@ -61,7 +61,8 @@ CREATE TABLE IF NOT EXISTS spaces (
 CREATE TABLE IF NOT EXISTS desks (
   id        INTEGER PRIMARY KEY,           -- número de mesa
   taken     INTEGER NOT NULL DEFAULT 0,    -- 0=libre, 1=ocupada
-  free_date TEXT                            -- ISO '2026-08-01' (si ocupada con fecha de liberación)
+  free_date TEXT,                           -- ISO '2026-08-01' (si ocupada con fecha de liberación)
+  photo     TEXT                           -- ruta de la foto en static/ (nullable)
 );
 
 -- ── Oficinas privadas (disponibilidad + precio) ─────────────────
@@ -69,7 +70,8 @@ CREATE TABLE IF NOT EXISTS offices (
   id        INTEGER PRIMARY KEY,           -- número de oficina
   taken     INTEGER NOT NULL DEFAULT 0,
   price     TEXT NOT NULL,                 -- '960 € + IVA'
-  free_date TEXT
+  free_date TEXT,
+  photo     TEXT                           -- ruta de la foto en static/ (nullable)
 );
 
 -- ── Fotos por oficina ───────────────────────────────────────────

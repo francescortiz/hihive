@@ -74,6 +74,7 @@ export interface Desk {
   id: number;
   taken: number;
   free_date: string | null;
+  photo: string | null;
 }
 
 export interface Office {
@@ -81,6 +82,7 @@ export interface Office {
   taken: number;
   price: string;
   free_date: string | null;
+  photo: string | null;
 }
 
 export interface OfficePhoto {

@@ -1,12 +1,14 @@
 <script lang="ts">
   import Reveal from '$lib/components/Reveal.svelte';
   import UnitPhotos from './UnitPhotos.svelte';
+  import { asset } from '$lib/utils';
 
   interface DeskLike {
     id: number;
     taken: number;
     price?: string;
     free_date: string | null;
+    photo?: string | null;
   }
 
   interface OfficePhoto {
@@ -45,6 +47,17 @@
     const d = new Date(iso + 'T00:00:00');
     return d.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
   }
+
+  /** Miniatura de la celda: foto propia de la unidad; en oficinas,
+   *  fallback a la primera foto de su galería. Sin foto → celda compacta. */
+  function cellPhoto(d: DeskLike): string | null {
+    if (d.photo) return d.photo;
+    if (photoPrefix) {
+      const gallery = officePhotos[d.id];
+      if (gallery && gallery.length > 0) return gallery[0].src;
+    }
+    return null;
+  }
 </script>
 
 <Reveal id={boardId} className="desk-board">
@@ -61,14 +74,20 @@
       {@const state = d.taken ? 'taken' : 'free'}
       {@const price = d.price || priceLabel}
       {@const statusText = d.taken ? (d.free_date ? `Libre ${fmtDate(d.free_date)}` : 'Ocupada') : 'Libre'}
+      {@const photo = cellPhoto(d)}
       <div class="desk-wrap">
         {#if photoPrefix}
           <button
             type="button"
-            class="desk desk--{state}{price ? ' desk--cornernum' : ''} desk--clickable"
+            class="desk desk--{state}{price ? ' desk--cornernum' : ''} desk--clickable{photo ? ' desk--withphoto' : ''}"
             onclick={() => photosFor = d.id}
             aria-label="Ver fotos de {unitWord} {d.id}"
           >
+            {#if photo}
+              <span class="desk-photo">
+                <img src={asset(photo)} alt="Foto de la {unitWord} {d.id}" loading="lazy" decoding="async" />
+              </span>
+            {/if}
             <span class="desk-num">{d.id}</span>
             {#if price}
               <span class="desk-price">{price}</span>
@@ -81,9 +100,14 @@
           </button>
         {:else}
           <div
-            class="desk desk--{state}{price ? ' desk--cornernum' : ''}"
+            class="desk desk--{state}{price ? ' desk--cornernum' : ''}{photo ? ' desk--withphoto' : ''}"
             aria-label="{unitWord} {d.id}{d.taken ? ' (ocupada)' : ''}"
           >
+            {#if photo}
+              <span class="desk-photo">
+                <img src={asset(photo)} alt="Foto de la {unitWord} {d.id}" loading="lazy" decoding="async" />
+              </span>
+            {/if}
             <span class="desk-num">{d.id}</span>
             {#if price}
               <span class="desk-price">{price}</span>

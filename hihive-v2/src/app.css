@@ -409,7 +409,7 @@
   .desk-head p { color: var(--ink-soft); font-size: 13.5px; margin: 0 auto; max-width: 42ch; }
 
   .desk-board {
-    max-width: 720px;
+    max-width: 880px;
     margin: clamp(40px, 6vw, 72px) auto 0;
     background: var(--bg-elev);
     border: 1px solid var(--line);
@@ -467,18 +467,16 @@
   .commons-desc { color: var(--ink-soft); font-size: 14.5px; max-width: 46ch; margin: 16px auto 0; text-wrap: pretty; }
 
   .desk-row {
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-    gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+    gap: 12px;
     margin: 22px auto 8px;
-    flex-wrap: nowrap;
   }
   .desk-wrap {
-    flex: 1 1 0;
     min-width: 0;
     display: flex; flex-direction: column; gap: 6px;
   }
+  .desk-wrap > .desk { flex: 1 1 auto; }
   .desk {
     position: relative;
     width: 100%;
@@ -545,6 +543,34 @@
   .desk--clickable.desk--taken .desk-photos-hint { background: rgba(255,255,255,0.14); color: color-mix(in oklab, #fff 82%, transparent); }
   .desk--clickable:hover { border-color: var(--accent); }
   .desk-num, .desk-tag, .desk-price { position: relative; }
+
+  /* Photo-cell variant: la miniatura vive dentro de la celda */
+  .desk.desk--withphoto, button.desk.desk--clickable.desk--withphoto { padding: 10px; gap: 9px; }
+  .desk-photo {
+    display: block; position: relative;
+    width: 100%; aspect-ratio: 4 / 3;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: linear-gradient(135deg, #e8ddd0 0%, #c8a48a 100%);
+  }
+  .desk-photo img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    transition: transform .5s cubic-bezier(.2,.8,.2,1), filter .3s ease;
+  }
+  .desk--clickable.desk--withphoto:hover .desk-photo img { transform: scale(1.06); }
+  /* Taken cells stay dark and legible: photo sinks into the cell */
+  .desk--taken .desk-photo { border-color: rgba(255,255,255,0.14); }
+  .desk--taken .desk-photo img { filter: grayscale(0.55) brightness(0.62); }
+  /* Hint floats over the photo corner — needs a solid-ish pill to read on imagery */
+  .desk--withphoto .desk-photos-hint {
+    background: color-mix(in oklab, var(--bg-elev) 88%, transparent);
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+  }
   /* corner-num variant no longer needs absolute positioning */
   .desk--cornernum { }
   .desk--free {
